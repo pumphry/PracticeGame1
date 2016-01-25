@@ -25,7 +25,7 @@ public class ScreenManager : MonoBehaviourSingleton<ScreenManager>
 		Debug.Log("OpenMainMenuScreen call is working.");
 
 		if (UIManager.Instance != null) {
-			UIManager.Instance.TransitionToStartupScreen (); 
+			UIManager.Instance.TransitionToStartupScreen ();
 		}
 
 	}
