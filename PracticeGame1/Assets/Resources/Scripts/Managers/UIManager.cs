@@ -124,7 +124,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 			_UIPopupLayerRect = _UIPopupLayer.AddComponent<RectTransform> ();
 
 			// The three UI docking components (UIRoot, UIScreenLayer, and UIPopupLayer) are finished building.
-			Debug.Log ("UIScreenLayer and UIPopupLayer have been created.");
+			Debug.Log ("UIScreenLayer, UIOverlayLayer, and UIPopupLayer have been created as children of UIRoot.");
 			OnUIFrameworkFinishedBuilding ();
 		}
 	}
@@ -150,16 +150,13 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 		}
 
 		// If the screen hasn't been loaded previously, then load it and make it a child of the _UIScreenLayer.
-		if (!screenPreviouslyLoaded) 
-		{
+		if (!screenPreviouslyLoaded) {
 			GameObject screen = Instantiate (Resources.Load (UI_SCREEN_PREFABS_PATH + screenToLoad.ToString (), typeof(GameObject))) as GameObject;
 
-			if (screen != null) 
-			{
+			if (screen != null) {
 				RectTransform screenRect = screen.GetComponent<RectTransform> ();
 
-				if (screenRect != null) 
-				{
+				if (screenRect != null) {
 					screenRect.transform.SetParent (_UIScreenLayerRect.transform, true);
 					screenRect.transform.localPosition = Vector3.zero;
 					screenRect.transform.localScale = Vector3.one;
@@ -172,6 +169,10 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 			LoadedScreenNames.Add (screenToLoad.ToString ());
 
 			Debug.LogFormat ("{0} screen has been loaded.", screenToLoad.ToString ());
+		} 
+		else 
+		{
+			Debug.LogErrorFormat ("{0} screen has been previously loaded. Cannot load again!", screenToLoad.ToString());
 		}
 	}
 
@@ -217,6 +218,10 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 			LoadedOverlayNames.Add (overlayToLoad.ToString ());
 
 			Debug.LogFormat ("{0} overlay has been loaded.", overlayToLoad.ToString ());
+		}
+		else 
+		{
+			Debug.LogErrorFormat ("{0} overlay has been previously loaded. Cannot load again!", overlayToLoad.ToString());
 		}
 	}
 
