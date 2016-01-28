@@ -4,23 +4,32 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// User interface manager that instantiates the three layers of the UI (Screen, Overlay, and Popup) and is used to load and unload UI on each of these levels.
+/// </summary>
 public class UIManager : MonoBehaviourSingleton<UIManager> 
 {
 	
 	// Enum group of UI Screen names that get translated to strings and are used to load the screen prefabs for each screen.
 	public enum UIScreens { MainMenuScreen }; 
 
+	// Enum group of Overlay names that get translated to strings and are used to load the overlay prefabs for each overlay.
+	public enum UIOverlays { FrontEndHud };
+
 	// Enum group of (unique, non-generic) UI Popup names that get translated to strings and are used to load the popup prefabs for each popup.
 	public enum UIPopups { TestPopup }; 
 
 	public List<string> LoadedScreenNames = new List<string> ();
+	public List<string> LoadedOverlayNames = new List<string> ();
 	public List<string> LoadedPopupNames = new List<string> ();
 
 	public const string UI_SCREEN_PREFABS_PATH = "Prefabs/UI/Screens/";
+	public const string UI_OVERLAY_PREFABS_PATH = "Prefabs/UI/Overlays/";
 	public const string UI_POPUP_PREFABS_PATH = "Prefabs/UI/Popups/";
 
 	private const string UI_ROOT_NAME = "UIRoot";
 	private const string UI_SCREEN_LAYER_NAME = "UIScreenLayer";
+	private const string UI_OVERLAY_LAYER_NAME = "UIOverlayLayer";
 	private const string UI_POPUP_LAYER_NAME = "UIPopupLayer";
 
 	// Event setup that will call once all the of the UI framework is done building.
@@ -30,6 +39,8 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 	private GameObject _UIRoot;
 	private GameObject _UIScreenLayer;
 	private RectTransform _UIScreenLayerRect;
+	private GameObject _UIOverlayLayer;
+	private RectTransform _UIOverlayLayerRect;
 	private GameObject _UIPopupLayer;
 	private RectTransform _UIPopupLayerRect;
 
@@ -94,8 +105,17 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 			_UIScreenLayer.transform.localScale = Vector3.one;
 			_UIScreenLayerRect = _UIScreenLayer.AddComponent<RectTransform> ();
 
-			// Create the UIPopupLayer GameObject second so it is second in the Heirarchy and will draw 
-			//UI elements OVER the UIScreenLayer when they are parented to it.
+			// Create the UIOverlayLayer GameObjet second so it is second in the Heirarchy and will draw
+			// UI elements OVER the UIScreenLayer whent they are parented to it.
+			GameObject _UIOverlayLayer = new GameObject ();
+			_UIOverlayLayer.name = UI_OVERLAY_LAYER_NAME;
+			_UIOverlayLayer.transform.parent = UIRoot.transform;
+			_UIOverlayLayer.transform.localPosition = Vector3.zero;
+			_UIOverlayLayer.transform.localScale = Vector3.one;
+			_UIOverlayLayerRect = _UIOverlayLayer.AddComponent<RectTransform> ();
+
+			// Create the UIPopupLayer GameObject third so it is third in the Heirarchy and will draw 
+			//UI elements OVER the UIScreenLayer and the UIOverlayLayer when they are parented to it.
 			GameObject _UIPopupLayer = new GameObject ();
 			_UIPopupLayer.name = UI_POPUP_LAYER_NAME;
 			_UIPopupLayer.transform.parent = UIRoot.transform;
@@ -110,7 +130,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 	}
 
 	/// <summary>
-	/// Loads the desired screen if not already loaded and then switches to that scree in UI view if switchToScreenOnLoad is true.
+	/// Loads the desired screen if not already loaded and then switches to that screen in UI view if switchToScreenOnLoad is true.
 	/// </summary>
 	/// <param name="screenToLoad">Screen to load.</param>
 	/// <param name="switchToScreenOnLoad">If set to <c>true</c> switch to screen on load.</param>
@@ -134,10 +154,12 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 		{
 			GameObject screen = Instantiate (Resources.Load (UI_SCREEN_PREFABS_PATH + screenToLoad.ToString (), typeof(GameObject))) as GameObject;
 
-			if (screen != null) {
+			if (screen != null) 
+			{
 				RectTransform screenRect = screen.GetComponent<RectTransform> ();
 
-				if (screenRect != null) {
+				if (screenRect != null) 
+				{
 					screenRect.transform.SetParent (_UIScreenLayerRect.transform, true);
 					screenRect.transform.localPosition = Vector3.zero;
 					screenRect.transform.localScale = Vector3.one;
@@ -154,7 +176,52 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 	}
 
 	/// <summary>
-	/// Loads a unique popup (a non GenericPopup popup) and makes it a child of the _UIPopupLayer layer.
+	/// Loads the desired overlay passed through if it hasn't already been previously loaded and then switches to that overlay if switchToOverlayOnLoad is true.
+	/// </summary>
+	/// <param name="overlayToLoad">Overlay to load.</param>
+	/// <param name="switchToOverlayOnLoad">If set to <c>true</c> switch to overlay on load.</param>
+	public void LoadOverlay(UIOverlays overlayToLoad, bool switchToOverlayOnLoad = true)
+	{
+		bool overlayPreviouslyLoaded = false;
+		// Check all screen names in LoadedOverlayNames list to make sure this overlay hasn't already been loaded previously.
+		if (LoadedOverlayNames.Count > 0) 
+		{
+			foreach (string overlayName in LoadedOverlayNames) 
+			{
+				if (overlayName == overlayToLoad.ToString ()) 
+				{
+					overlayPreviouslyLoaded = true;
+				}
+			}
+		}
+
+		if (!overlayPreviouslyLoaded) 
+		{
+			GameObject overlay = Instantiate (Resources.Load (UI_OVERLAY_PREFABS_PATH + overlayToLoad.ToString (), typeof(GameObject))) as GameObject;
+
+			if (overlay != null) 
+			{
+				RectTransform overlayRect = overlay.GetComponent<RectTransform> ();
+
+				if (overlayRect != null) 
+				{
+					overlayRect.transform.SetParent (_UIOverlayLayerRect.transform, true);
+					overlayRect.transform.localPosition = Vector3.zero;
+					overlayRect.transform.localScale = Vector3.one;
+				}
+			}
+
+			// Toggle the loaded overlay either active or inactive.
+			overlay.gameObject.SetActive (switchToOverlayOnLoad);
+
+			LoadedOverlayNames.Add (overlayToLoad.ToString ());
+
+			Debug.LogFormat ("{0} overlay has been loaded.", overlayToLoad.ToString ());
+		}
+	}
+
+	/// <summary>
+	/// Loads a unique popup (a non-GenericPopup popup) and makes it a child of the _UIPopupLayer layer.
 	/// </summary>
 	/// <param name="popupToLoad">Popup to load.</param>
 	public void LoadAndShowUniquePopup(UIPopups popupToLoad)
@@ -184,10 +251,16 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 		// TODO Implement the generic popup script, corresponding prefab, then this.
 	}
 
-	public void TransitionToStartupScreen()
+	public void LoadStartupScreen()
 	{
 		// Instantiate startup scene prefab as parent of UIScreenLayer.
 		LoadScreen (UIScreens.MainMenuScreen, true);
+	}
+
+	public void LoadFrontEndHudOverlay()
+	{
+		// Insantiate FrontEndHud overlay as parent of UIOverlayLayer.
+		LoadOverlay (UIOverlays.FrontEndHud, true);
 	}
 
 	public IEnumerator OpenTestPopup()

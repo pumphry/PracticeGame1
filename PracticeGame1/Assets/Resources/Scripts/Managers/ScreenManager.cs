@@ -16,17 +16,19 @@ public class ScreenManager : MonoBehaviourSingleton<ScreenManager>
 	{
 		Debug.Log ("SceneManager is active.");
 
-		UIManager.OnUIFrameworkFinishedBuilding += OpenMainMenuScreen;
+		UIManager.OnUIFrameworkFinishedBuilding += OpenFrontEndUIComponents;
 	}
 
-	void OpenMainMenuScreen()
+	void OpenFrontEndUIComponents()
 	{
-		// Call the UIManager function to open the main menu.
-		Debug.Log("OpenMainMenuScreen call is working.");
-
+		// Call the UIManager to open the startup FrontEnd UI elements.
 		if (UIManager.Instance != null) {
-			UIManager.Instance.TransitionToStartupScreen ();
+			UIManager.Instance.LoadStartupScreen ();
+			UIManager.Instance.LoadFrontEndHudOverlay ();
+		} 
+		else 
+		{
+			Debug.LogError ("UIManager is null!");
 		}
-
 	}
 }
