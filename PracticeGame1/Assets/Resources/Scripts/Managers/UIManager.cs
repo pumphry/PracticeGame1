@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 	public enum UIOverlays { FrontEndHud };
 
 	// Enum group of (unique, non-generic) UI Popup names that get translated to strings and are used to load the popup prefabs for each popup.
-	public enum UIPopups { TestPopup }; 
+	public enum UIPopups { OptionsPopup }; 
 
 	public List<string> LoadedScreenNames = new List<string> ();
 	public List<string> LoadedOverlayNames = new List<string> ();
@@ -86,7 +86,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 		graphicRaycaster.ignoreReversedGraphics = true;
 		graphicRaycaster.blockingObjects = GraphicRaycaster.BlockingObjects.None;
 
-		Debug.Log ("UIRoot has been created.");
+        Debug.Log ("UIRoot has been created.");
 
 		AddUILayersToRoot (_UIRoot);
 	}
@@ -254,6 +254,31 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 		// TODO Implement the generic popup script, corresponding prefab, then this.
 	}
 
+    // Finds the last popup that has been opened and closes it.
+    public void CloseLastPopupListed()
+    {
+        if (LoadedPopupNames.Count > 0)
+        {
+            GameObject popupToClose = GameObject.Find(LoadedPopupNames[LoadedPopupNames.Count - 1] + "(Clone)");
+            if (popupToClose != null)
+            {
+                // Destroy the popup.
+                Destroy(popupToClose);
+                // Remove the popups name from the active loaded list of popups we have.
+                Debug.LogFormat("UIManager.CloseLastPopupListed - Closing the {0} popup.", LoadedPopupNames[LoadedPopupNames.Count - 1].ToString());
+                LoadedPopupNames.Remove(LoadedPopupNames[LoadedPopupNames.Count - 1]);
+            }
+            else
+            {
+                Debug.LogWarning("UIManager.CloseLastPopupListed - Couldn't find a popup GameObject that matched the LoadedPopupNames list final popup name.");
+            }
+        }
+        else
+        {
+            Debug.Log("UIManager.CloseLastPopupListed - No popups listed to be closed.");
+        }
+    }
+
 	public void LoadStartupScreen()
 	{
 		// Instantiate startup scene prefab as parent of UIScreenLayer.
@@ -270,6 +295,6 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 	{
 		yield return new WaitForSeconds (2.0f);
 
-		LoadAndShowUniquePopup (UIPopups.TestPopup);
+		LoadAndShowUniquePopup (UIPopups.OptionsPopup);
 	}
 }

@@ -80,6 +80,7 @@
     <Compile Include="Assets\Resources\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Resources\Scripts\MonoBehaviourSingleton.cs" />
     <Compile Include="Assets\Resources\Scripts\UI\MainMenuScreenManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\OptionsPopupManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />

@@ -12,11 +12,6 @@ public class MainMenuScreenManager : MonoBehaviour {
 	void Start () {
 	    // TODO perform runtime opening functionality here for this screen.
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public void StartButtonPressed()
     {
@@ -26,5 +21,8 @@ public class MainMenuScreenManager : MonoBehaviour {
     public void OptionsButtonPressed()
     {
         Debug.Log("Options button has been pressed. Begin loading options screen!");
+
+        // Load popup using utility function from UIManager script.
+        UIManager.Instance.LoadAndShowUniquePopup(UIManager.UIPopups.OptionsPopup);
     }
 }
