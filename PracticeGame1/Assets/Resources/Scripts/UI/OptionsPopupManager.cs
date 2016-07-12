@@ -11,6 +11,6 @@ public class OptionsPopupManager : MonoBehaviour {
     public void CloseOptionsPopup()
     {
         Debug.Log("Closing the Options Popup.");
-        UIManager.Instance.CloseLastPopupListed();
+        UIManager.Instance.RemoveLastPopupListed();
     }
 }

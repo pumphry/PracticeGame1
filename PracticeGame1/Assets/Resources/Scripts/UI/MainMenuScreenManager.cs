@@ -16,6 +16,9 @@ public class MainMenuScreenManager : MonoBehaviour {
     public void StartButtonPressed()
     {
         Debug.Log("Start button has been pressed. Begin loading gameplay!");
+
+        // Load gameplay prefab.
+        GameplayManager.Instance.CreateGameplayInstance();
     }
 
     public void OptionsButtonPressed()

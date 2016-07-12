@@ -32,6 +32,8 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 	private const string UI_OVERLAY_LAYER_NAME = "UIOverlayLayer";
 	private const string UI_POPUP_LAYER_NAME = "UIPopupLayer";
 
+    private const string CLONE_STR = "(Clone)";
+
 	// Event setup that will call once all the of the UI framework is done building.
 	public delegate void UIFrameworkFinishedBuilding();
 	public static event UIFrameworkFinishedBuilding OnUIFrameworkFinishedBuilding;
@@ -174,12 +176,29 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 		}
 	}
 
-	/// <summary>
-	/// Loads the desired overlay passed through if it hasn't already been previously loaded and then switches to that overlay if switchToOverlayOnLoad is true.
-	/// </summary>
-	/// <param name="overlayToLoad">Overlay to load.</param>
-	/// <param name="switchToOverlayOnLoad">If set to <c>true</c> switch to overlay on load.</param>
-	public void LoadOverlay(UIOverlays overlayToLoad, bool switchToOverlayOnLoad = true)
+    /// <summary>
+    /// Hides or shows the screen UI element that matches the name string passed through.
+    /// </summary>
+    /// <param name="nameOfScreenToHide"></param>
+    /// <param name="hide"></param>
+    public void ToggleScreen(string nameOfScreenToHide, bool show)
+    {
+        if (nameOfScreenToHide != null)
+        {
+            GameObject screenToHide = GameObject.Find(nameOfScreenToHide + CLONE_STR);
+            if (screenToHide != null)
+            {
+                screenToHide.gameObject.SetActive(show);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Loads the desired overlay passed through if it hasn't already been previously loaded and then switches to that overlay if switchToOverlayOnLoad is true.
+    /// </summary>
+    /// <param name="overlayToLoad">Overlay to load.</param>
+    /// <param name="switchToOverlayOnLoad">If set to <c>true</c> switch to overlay on load.</param>
+    public void LoadOverlay(UIOverlays overlayToLoad, bool switchToOverlayOnLoad = true)
 	{
 		bool overlayPreviouslyLoaded = false;
 		// Check all screen names in LoadedOverlayNames list to make sure this overlay hasn't already been loaded previously.
@@ -223,6 +242,23 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 		}
 	}
 
+    /// <summary>
+    /// Hides or shows the overlay UI element that has a matching name to the name string passed through.
+    /// </summary>
+    /// <param name="nameOfOverlayToToggle"></param>
+    /// <param name="hide"></param>
+    public void ToggleOverlay(string nameOfOverlayToToggle, bool show)
+    {
+        if (nameOfOverlayToToggle != null)
+        {
+            GameObject overlayToHide = GameObject.Find(nameOfOverlayToToggle + CLONE_STR);
+            if (overlayToHide != null)
+            {
+                overlayToHide.gameObject.SetActive(show);
+            }
+        }
+    }
+
 	/// <summary>
 	/// Loads a unique popup (a non-GenericPopup popup) and makes it a child of the _UIPopupLayer layer.
 	/// </summary>
@@ -255,7 +291,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 	}
 
     // Finds the last popup that has been opened and closes it.
-    public void CloseLastPopupListed()
+    public void RemoveLastPopupListed()
     {
         if (LoadedPopupNames.Count > 0)
         {
@@ -291,10 +327,25 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 		LoadOverlay (UIOverlays.FrontEndHud, true);
 	}
 
-	public IEnumerator OpenTestPopup()
-	{
-		yield return new WaitForSeconds (2.0f);
+    /// <summary>
+    /// Iterates through all loaded screens and overlays and sets FrontEnd ones to inactive or active. May need to be extended to popups.
+    /// </summary>
+    public void ToggleFrontendUI(bool show)
+    {
+        foreach (string screenName in LoadedScreenNames)
+        {
+            if (screenName == "MainMenuScreen")
+            {
+                ToggleScreen("MainMenuScreen", show);
+            }
+        }
 
-		LoadAndShowUniquePopup (UIPopups.OptionsPopup);
-	}
+        foreach (string overlayName in LoadedOverlayNames)
+        {
+            if (overlayName == "FrontEndHud")
+            {
+                ToggleOverlay("FrontEndHud", show);
+            }
+        }
+    }
 }
