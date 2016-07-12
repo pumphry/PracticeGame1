@@ -55,8 +55,6 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
 		CreateUIRoot ();
 
-		// TODO remove this when done testing.
-		StartCoroutine (OpenTestPopup ());
 	}
 
 	void ClearUIManagerVariables()
