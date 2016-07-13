@@ -4,6 +4,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Manages the loading up of the gameplay prefab and controls the gameplay events.
+/// </summary>
 public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 {
 
@@ -35,6 +38,9 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
     public void CreateGameplayInstance()
     {
         Debug.Log("Gameplay instance is being created.");
+
+        _GameplayPaused = false;
+        Time.timeScale = 1.0f;
 
         UIManager.Instance.ToggleFrontendUI(false);
 
@@ -70,6 +76,15 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
         ToggleGameplayControlsListener(true);
     }
 
+    private void DestroyGameplayPrefab()
+    {
+        GameObject gameplayPrefab = GameObject.Find(GAMEPLAY_PREFAB_NAME);
+        if(gameplayPrefab != null)
+        {
+            DestroyImmediate(gameplayPrefab);
+        }
+    }
+
     /// <summary>
     /// Interacts with UIManager script to establish gameplay UI (Hud overlay, load any pre-game screens, load any necessary popups).
     /// </summary>
@@ -79,6 +94,13 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
         UIManager.Instance.LoadOverlay(UIManager.UIOverlays.GameplayHud, true);
         // Load the PauseGameplayScreen but don't set to active.
         UIManager.Instance.LoadScreen(UIManager.UIScreens.PauseGameplayScreen, false);
+    }
+
+    public void ExitGameAndReturnToFrontend()
+    {
+        UIManager.Instance.ToggleFrontendUI(true);
+
+        DestroyGameplayPrefab();
     }
 
     private void ToggleGameplayControlsListener(bool isActive)

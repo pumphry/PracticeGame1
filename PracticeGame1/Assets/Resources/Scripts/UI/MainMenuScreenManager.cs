@@ -23,7 +23,7 @@ public class MainMenuScreenManager : MonoBehaviour {
 
     public void OptionsButtonPressed()
     {
-        Debug.Log("Options button has been pressed. Begin loading options screen!");
+        Debug.Log("Options button has been pressed. Begin loading options popup!");
 
         // Load popup using utility function from UIManager script.
         UIManager.Instance.LoadAndShowUniquePopup(UIManager.UIPopups.OptionsPopup);

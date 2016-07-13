@@ -182,7 +182,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 		} 
 		else 
 		{
-			Debug.LogErrorFormat ("{0} screen has been previously loaded. Cannot load again!", screenToLoad.ToString());
+			Debug.LogFormat ("{0} screen has been previously loaded. Cannot load again!", screenToLoad.ToString());
 		}
 	}
 
@@ -263,28 +263,37 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 			overlay.gameObject.SetActive (switchToOverlayOnLoad);
 
 			LoadedOverlayNames.Add (overlayToLoad.ToString ());
+            LoadedOverlays.Add (overlay);
 
 			Debug.LogFormat ("{0} overlay has been loaded.", overlayToLoad.ToString ());
 		}
 		else 
 		{
-			Debug.LogErrorFormat ("{0} overlay has been previously loaded. Cannot load again!", overlayToLoad.ToString());
+			Debug.LogFormat ("{0} overlay has been previously loaded. Cannot load again!", overlayToLoad.ToString());
 		}
 	}
 
     /// <summary>
-    /// Hides or shows the overlay UI element that has a matching name to the name string passed through.
+    /// Toggles an overlay UI element active or inactive.
     /// </summary>
-    /// <param name="nameOfOverlayToToggle"></param>
-    /// <param name="hide"></param>
-    public void ToggleOverlay(string nameOfOverlayToToggle, bool show)
+    /// <param name="overlayToToggle"></param>
+    /// <param name="isActive"></param>
+    public void ToggleOverlayActive(UIOverlays overlayToToggle, bool isActive)
     {
-        if (nameOfOverlayToToggle != null)
+        if (overlayToToggle.ToString() != null)
         {
-            GameObject overlayToHide = GameObject.Find(nameOfOverlayToToggle + CLONE_STR);
-            if (overlayToHide != null)
+            foreach (string overlayName in LoadedOverlayNames)
             {
-                overlayToHide.gameObject.SetActive(show);
+                if (overlayName == overlayToToggle.ToString())
+                {
+                    for (int i = 0; i < LoadedOverlayNames.Count; i++)
+                    {
+                        if (LoadedOverlayNames[i] == overlayToToggle.ToString())
+                        {
+                            LoadedOverlays[i].gameObject.SetActive(isActive);
+                        }
+                    }
+                }
             }
         }
     }
@@ -308,6 +317,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 		}
 
 		LoadedPopupNames.Add (popupToLoad.ToString ());
+        LoadedPopups.Add (popup);
 
 		Debug.LogFormat ("{0} popup has been loaded and is showing.", popupToLoad.ToString ());
 	}
@@ -333,6 +343,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
                 // Remove the popups name from the active loaded list of popups we have.
                 Debug.LogFormat("UIManager.CloseLastPopupListed - Closing the {0} popup.", LoadedPopupNames[LoadedPopupNames.Count - 1].ToString());
                 LoadedPopupNames.Remove(LoadedPopupNames[LoadedPopupNames.Count - 1]);
+                LoadedPopups.Remove(popupToClose);
             }
             else
             {
@@ -362,19 +373,56 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     /// </summary>
     public void ToggleFrontendUI(bool show)
     {
-        foreach (string screenName in LoadedScreenNames)
+        if (show)
         {
-            if (screenName == "MainMenuScreen")
+            foreach (string screenName in LoadedScreenNames)
             {
-                ToggleScreen("MainMenuScreen", show);
+                if (screenName == UIScreens.MainMenuScreen.ToString())
+                {
+                    ToggleScreenActive(UIScreens.MainMenuScreen, show);
+                }
+                if (screenName == UIScreens.PauseGameplayScreen.ToString())
+                {
+                    ToggleScreenActive(UIScreens.PauseGameplayScreen, !show);
+                }
+            }
+
+            foreach (string overlayName in LoadedOverlayNames)
+            {
+                if (overlayName == UIOverlays.FrontEndHud.ToString())
+                {
+                    ToggleOverlayActive(UIOverlays.FrontEndHud, show);
+                }
+                if (overlayName == UIOverlays.GameplayHud.ToString())
+                {
+                    ToggleOverlayActive(UIOverlays.GameplayHud, !show);
+                }
             }
         }
-
-        foreach (string overlayName in LoadedOverlayNames)
+        else
         {
-            if (overlayName == "FrontEndHud")
+            foreach (string screenName in LoadedScreenNames)
             {
-                ToggleOverlay("FrontEndHud", show);
+                if (screenName == UIScreens.MainMenuScreen.ToString())
+                {
+                    ToggleScreenActive(UIScreens.MainMenuScreen, show);
+                }
+                if (screenName == UIScreens.PauseGameplayScreen.ToString())
+                {
+                    ToggleScreenActive(UIScreens.PauseGameplayScreen, show);
+                }
+            }
+
+            foreach (string overlayName in LoadedOverlayNames)
+            {
+                if (overlayName == UIOverlays.FrontEndHud.ToString())
+                {
+                    ToggleOverlayActive(UIOverlays.FrontEndHud, show);
+                }
+                if (overlayName == UIOverlays.GameplayHud.ToString())
+                {
+                    ToggleOverlayActive(UIOverlays.GameplayHud, !show);
+                }
             }
         }
     }
