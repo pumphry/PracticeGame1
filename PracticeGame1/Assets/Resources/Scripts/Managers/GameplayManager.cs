@@ -4,23 +4,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameplayManager : MonoBehaviourSingleton<GameplayManager> {
+public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
+{
 
-    private GameObject _GameplayRoot;
+    private string GAMEPLAY_PREFAB_PATH = "Prefabs/3D/GameplayPrefab";
 
     // Use this for initialization
     void Start()
     {
         Debug.Log("GameplayManager is active.");
-
-        CreateGameplayRoot();
-    }
-
-    private void CreateGameplayRoot()
-    {
-        // Create a UIRoot that will host the two layers of the UI (screen layer and popup layer).
-        GameObject _GameplayRoot = new GameObject();
-        _GameplayRoot.name = "GameplayRoot";
     }
 
     public void CreateGameplayInstance()
@@ -28,6 +20,24 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager> {
         Debug.Log("Gameplay instance is being created.");
 
         UIManager.Instance.ToggleFrontendUI(false);
+
+        CreateGameplayPrefab();
+    }
+
+    private void CreateGameplayPrefab()
+    {
+        GameObject gameplayPrefab = Instantiate(Resources.Load(GAMEPLAY_PREFAB_PATH, typeof(GameObject))) as GameObject;
+
+        if (gameplayPrefab != null)
+        {
+            Debug.LogFormat("Gameplay prefab instanced.");
+
+            gameplayPrefab.transform.position = Vector3.zero;
+        }
+        else
+        {
+            Debug.LogErrorFormat("Gameplay prefab failed to instance!");
+        }
     }
 
 }

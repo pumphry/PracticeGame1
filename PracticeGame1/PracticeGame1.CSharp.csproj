@@ -75,6 +75,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Resources\Scripts\DummyScript.cs" />
     <Compile Include="Assets\Resources\Scripts\Managers\GameStartupManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Managers\GameplayManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Managers\ScreenManager.cs" />
