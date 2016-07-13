@@ -3,15 +3,25 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 /// <summary>
 /// Manages the loading up of the gameplay prefab and controls the gameplay events.
 /// </summary>
 public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 {
-
+    private bool _GameplayStarted = false;
     private bool _GameplayControlsListenerOn = false;
     private bool _GameplayPaused = false;
+    private bool _StartGameCountdownFinished = false;
+
+    private GameObject _ThirdPersonController;
+    private ThirdPersonUserControl _ThirdPersonUserControlScript;
+
+    private static float STARTING_COUNTDOWN_TIME = 5.0f;
+    private float _TimeLeft = STARTING_COUNTDOWN_TIME;
+
+    public int TimeLeftOnCountdownInSeconds = 5;
 
     private string GAMEPLAY_PREFAB_PATH = "Prefabs/3D/GameplayPrefab";
 
@@ -33,6 +43,28 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
                 TogglePauseGameplay();
             }
         }
+        // Countdown timer to begin game.
+        if(!_GameplayPaused && !_StartGameCountdownFinished && _GameplayStarted)
+        {
+            _TimeLeft -= Time.deltaTime;
+
+            if(_TimeLeft < 0)
+            {
+                // Timer is finished begin gameplay and enable user controls.
+
+                _StartGameCountdownFinished = true;
+
+                _ThirdPersonUserControlScript.enabled = true;
+
+                Time.timeScale = 1.0f;
+            }
+            else
+            {
+                _ThirdPersonUserControlScript.enabled = false;
+
+                TimeLeftOnCountdownInSeconds = Mathf.RoundToInt(_TimeLeft);
+            }
+        }
     }
 
     public void CreateGameplayInstance()
@@ -41,10 +73,14 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 
         _GameplayPaused = false;
         Time.timeScale = 1.0f;
+        _StartGameCountdownFinished = false;
+        _TimeLeft = STARTING_COUNTDOWN_TIME;
 
         UIManager.Instance.ToggleFrontendUI(false);
 
         CreateGameplayPrefab();
+
+        _GameplayStarted = true;
     }
 
     private void CreateGameplayPrefab()
@@ -68,6 +104,12 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
         else
         {
             Debug.LogErrorFormat("Gameplay prefab failed to instance!");
+        }
+
+        _ThirdPersonController = GameObject.Find("ThirdPersonController");
+        if(_ThirdPersonController != null)
+        {
+            _ThirdPersonUserControlScript = _ThirdPersonController.GetComponent<ThirdPersonUserControl>();
         }
 
         // Setup the gameplay UI.

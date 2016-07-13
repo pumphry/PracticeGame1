@@ -76,9 +76,10 @@
     <Compile Include="Assets\Resources\Scripts\Managers\ScreenManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\Resources\Scripts\MonoBehaviourSingleton.cs" />
-    <Compile Include="Assets\Resources\Scripts\UI\MainMenuScreenManager.cs" />
-    <Compile Include="Assets\Resources\Scripts\UI\OptionsPopupManager.cs" />
-    <Compile Include="Assets\Resources\Scripts\UI\PauseGameplayScreenManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Overlays\GameplayHudManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Popups\OptionsPopupManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Screens\MainMenuScreenManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\UI\Screens\PauseGameplayScreenManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
