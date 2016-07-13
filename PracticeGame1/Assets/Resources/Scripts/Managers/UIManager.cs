@@ -23,7 +23,11 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 	public List<string> LoadedOverlayNames = new List<string> ();
 	public List<string> LoadedPopupNames = new List<string> ();
 
-	public const string UI_SCREEN_PREFABS_PATH = "Prefabs/UI/Screens/";
+    public List<GameObject> LoadedScreens = new List<GameObject> ();
+    public List<GameObject> LoadedOverlays = new List<GameObject>();
+    public List<GameObject> LoadedPopups = new List<GameObject>();
+
+    public const string UI_SCREEN_PREFABS_PATH = "Prefabs/UI/Screens/";
 	public const string UI_OVERLAY_PREFABS_PATH = "Prefabs/UI/Overlays/";
 	public const string UI_POPUP_PREFABS_PATH = "Prefabs/UI/Popups/";
 
@@ -67,6 +71,11 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
 		LoadedScreenNames.Clear ();
 		LoadedPopupNames.Clear ();
+        LoadedOverlayNames.Clear();
+
+        LoadedScreens.Clear ();
+        LoadedPopups.Clear ();
+        LoadedOverlays.Clear ();
 	}
 
 	void CreateUIRoot()
@@ -167,6 +176,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 			screen.gameObject.SetActive (switchToScreenOnLoad);
 
 			LoadedScreenNames.Add (screenToLoad.ToString ());
+            LoadedScreens.Add(screen.gameObject);
 
 			Debug.LogFormat ("{0} screen has been loaded.", screenToLoad.ToString ());
 		} 
@@ -176,19 +186,39 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 		}
 	}
 
+    public void ToggleScreenActive(UIScreens screenToToggle, bool isActive)
+    {
+        if (screenToToggle.ToString() != null)
+        {
+            foreach (string screenName in LoadedScreenNames)
+            {
+                if(screenName == screenToToggle.ToString())
+                {
+                    for (int i = 0; i < LoadedScreenNames.Count; i++)
+                    {
+                        if (LoadedScreenNames[i] == screenToToggle.ToString())
+                        {
+                            LoadedScreens[i].gameObject.SetActive(isActive);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// Hides or shows the screen UI element that matches the name string passed through.
     /// </summary>
     /// <param name="nameOfScreenToHide"></param>
     /// <param name="hide"></param>
-    public void ToggleScreen(string nameOfScreenToHide, bool show)
+    public void ToggleScreen(string nameOfScreen, bool show)
     {
-        if (nameOfScreenToHide != null)
+        if (nameOfScreen != null)
         {
-            GameObject screenToHide = GameObject.Find(nameOfScreenToHide + CLONE_STR);
-            if (screenToHide != null)
+            GameObject screen = GameObject.Find(nameOfScreen + CLONE_STR);
+            if (screen != null)
             {
-                screenToHide.gameObject.SetActive(show);
+                screen.gameObject.SetActive(show);
             }
         }
     }
