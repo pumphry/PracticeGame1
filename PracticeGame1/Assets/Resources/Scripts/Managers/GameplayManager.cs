@@ -38,6 +38,16 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
         {
             Debug.LogErrorFormat("Gameplay prefab failed to instance!");
         }
+
+        SetupInGameUI();
     }
 
+    /// <summary>
+    /// Interacts with UIManager script to establish gameplay UI (Hud overlay, load any pre-game screens, load any necessary popups).
+    /// </summary>
+    private void SetupInGameUI()
+    {
+        // Switch to in-game overlay.
+        UIManager.Instance.LoadOverlay(UIManager.UIOverlays.GameplayHud, true);
+    }
 }

@@ -11,10 +11,10 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 {
 	
 	// Enum group of UI Screen names that get translated to strings and are used to load the screen prefabs for each screen.
-	public enum UIScreens { MainMenuScreen }; 
+	public enum UIScreens { MainMenuScreen, PauseGameplayScreen }; 
 
 	// Enum group of Overlay names that get translated to strings and are used to load the overlay prefabs for each overlay.
-	public enum UIOverlays { FrontEndHud };
+	public enum UIOverlays { FrontEndHud, GameplayHud };
 
 	// Enum group of (unique, non-generic) UI Popup names that get translated to strings and are used to load the popup prefabs for each popup.
 	public enum UIPopups { OptionsPopup }; 
