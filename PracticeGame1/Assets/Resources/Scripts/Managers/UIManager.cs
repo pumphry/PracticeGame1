@@ -90,7 +90,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 		canvas.pixelPerfect = false;
 		canvas.sortingOrder = 0;
 		CanvasScaler canvasScaler = _UIRoot.AddComponent<CanvasScaler> ();
-		canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+		canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
 		canvasScaler.scaleFactor = 1f;
 		canvasScaler.referencePixelsPerUnit = 100f;
 		GraphicRaycaster graphicRaycaster = _UIRoot.AddComponent<GraphicRaycaster> ();
