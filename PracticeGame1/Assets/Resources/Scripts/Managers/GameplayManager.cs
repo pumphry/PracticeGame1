@@ -47,6 +47,7 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
                 TogglePauseGameplay();
             }
         }
+
         // Countdown timer to begin game.
         if(!GameplayPaused && !_StartGameCountdownFinished && _GameplayStarted)
         {
@@ -58,13 +59,13 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 
                 _StartGameCountdownFinished = true;
 
-                _ThirdPersonUserControlScript.enabled = true;
+                //_ThirdPersonUserControlScript.enabled = true;
 
                 Time.timeScale = 1.0f;
             }
             else
             {
-                _ThirdPersonUserControlScript.enabled = false;
+                //_ThirdPersonUserControlScript.enabled = false;
 
                 TimeLeftOnCountdownInSeconds = Mathf.RoundToInt(_TimeLeft);
             }
@@ -153,11 +154,17 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
     {
         _GameplayControlsListenerOn = isActive;
     }
+    
+    public void OpenGameOverPopup()
+    {
+        TogglePauseGameplay(false);
+        UIManager.Instance.LoadAndShowUniquePopup(UIManager.UIPopups.GameOverPopup);
+    }
 
     /// <summary>
     /// Toggle on or off pause. If paused, it pauses time and movement in worldspace gameplay and freezes timer or any other time-based effects.
     /// </summary>
-    public void TogglePauseGameplay()
+    public void TogglePauseGameplay(bool showPauseScreen = true)
     {
         // Toggle between paused or unpaused.
         if (GameplayPaused)
@@ -179,6 +186,9 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
             GameplayPaused = true;
         }
 
-        UIManager.Instance.ToggleScreenActive(UIManager.UIScreens.PauseGameplayScreen, GameplayPaused);
+        if (showPauseScreen)
+        {
+            UIManager.Instance.ToggleScreenActive(UIManager.UIScreens.PauseGameplayScreen, GameplayPaused);
+        }
     }
 }

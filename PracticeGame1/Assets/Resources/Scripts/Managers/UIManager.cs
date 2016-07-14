@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 	public enum UIOverlays { FrontEndHud, GameplayHud };
 
 	// Enum group of (unique, non-generic) UI Popup names that get translated to strings and are used to load the popup prefabs for each popup.
-	public enum UIPopups { OptionsPopup }; 
+	public enum UIPopups { OptionsPopup, GameOverPopup }; 
 
 	public List<string> LoadedScreenNames = new List<string> ();
 	public List<string> LoadedOverlayNames = new List<string> ();
