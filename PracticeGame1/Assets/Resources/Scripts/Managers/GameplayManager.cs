@@ -10,9 +10,13 @@ using UnityStandardAssets.Characters.ThirdPerson;
 /// </summary>
 public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 {
+    // Speed at which the moving track of incoming objects moves towards the player during the infinite runner gameplay.
+    public float GameplayTrackSpeed = 0.001f;
+
+    public bool GameplayPaused = false;
+
     private bool _GameplayStarted = false;
     private bool _GameplayControlsListenerOn = false;
-    private bool _GameplayPaused = false;
     private bool _StartGameCountdownFinished = false;
 
     private GameObject _ThirdPersonController;
@@ -44,7 +48,7 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
             }
         }
         // Countdown timer to begin game.
-        if(!_GameplayPaused && !_StartGameCountdownFinished && _GameplayStarted)
+        if(!GameplayPaused && !_StartGameCountdownFinished && _GameplayStarted)
         {
             _TimeLeft -= Time.deltaTime;
 
@@ -71,7 +75,7 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
     {
         Debug.Log("Gameplay instance is being created.");
 
-        _GameplayPaused = false;
+        GameplayPaused = false;
         Time.timeScale = 1.0f;
         _StartGameCountdownFinished = false;
         _TimeLeft = STARTING_COUNTDOWN_TIME;
@@ -156,14 +160,14 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
     public void TogglePauseGameplay()
     {
         // Toggle between paused or unpaused.
-        if (_GameplayPaused)
+        if (GameplayPaused)
         {
             // Resume gameplay and unpause.
             Time.timeScale = 1.0f;
 
             Debug.Log("Resuming gameplay and unpausing!");
 
-            _GameplayPaused = false;
+            GameplayPaused = false;
         }
         else
         {
@@ -172,9 +176,9 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 
             Debug.Log("Pausing the gameplay!");
 
-            _GameplayPaused = true;
+            GameplayPaused = true;
         }
 
-        UIManager.Instance.ToggleScreenActive(UIManager.UIScreens.PauseGameplayScreen, _GameplayPaused);
+        UIManager.Instance.ToggleScreenActive(UIManager.UIScreens.PauseGameplayScreen, GameplayPaused);
     }
 }
