@@ -1,0 +1,77 @@
+Initialize engine version: 5.3.5f1 (960ebf59018a)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: AMD Radeon R9 200 Series (ID=0x6798)
+    Vendor:   ATI
+    VRAM:     3046 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Builds\PCBuilds\Prototype-07-14-16_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Builds\PCBuilds\Prototype-07-14-16_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Builds\PCBuilds\Prototype-07-14-16_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Builds\PCBuilds\Prototype-07-14-16_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Builds\PCBuilds\Prototype-07-14-16_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Builds\PCBuilds\Prototype-07-14-16_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Builds\PCBuilds\Prototype-07-14-16_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Builds\PCBuilds\Prototype-07-14-16_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Builds\PCBuilds\Prototype-07-14-16_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Builds\PCBuilds\Prototype-07-14-16_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.048 seconds
+Platform assembly: S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Builds\PCBuilds\Prototype-07-14-16_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Builds\PCBuilds\Prototype-07-14-16_Data\Managed\System.dll (this message is harmless)
+desktop: 1600x900 60Hz; virtual: 3040x900 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.407424 ms
+StartupManager active.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+ScreenManager manager instanced on startup.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+UIManager manager instanced on startup.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+GameplayManager manager instanced on startup.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+All startup scene managers are now instanced.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+SceneManager is active.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+UIManager is active.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+UIRoot has been created.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+UIScreenLayer, UIOverlayLayer, and UIPopupLayer have been created as children of UIRoot.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+MainMenuScreen screen has been loaded.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+FrontEndHud overlay has been loaded.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+GameplayManager is active.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 2450 -> priority: 1 
+  Thread -> id: 1b60 -> priority: 1 
