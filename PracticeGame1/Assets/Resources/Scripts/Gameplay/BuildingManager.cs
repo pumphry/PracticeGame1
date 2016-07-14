@@ -24,9 +24,9 @@ public class BuildingManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (_StartMovingOnTrack)
+        if (_StartMovingOnTrack && !GameplayManager.Instance.GameplayPaused)
         {
-            // Building moves at trackspeed over time.
+            // Building moves on track at a speed over time.
             transform.position = Vector3.Lerp(transform.position, _PositionToLerpTo, TrackSpeed);
         }
     }
