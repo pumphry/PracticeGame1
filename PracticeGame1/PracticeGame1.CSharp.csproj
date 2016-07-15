@@ -73,6 +73,7 @@
     <Compile Include="Assets\Resources\Scripts\Gameplay\BuildingManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Gameplay\BuildingSpawnerManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Gameplay\PlayerCollisionsManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\Managers\AudioManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Managers\GameStartupManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Managers\GameplayManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Managers\PlayerPrefsManager.cs" />

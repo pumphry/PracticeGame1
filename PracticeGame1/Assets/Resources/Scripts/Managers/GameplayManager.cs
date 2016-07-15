@@ -25,6 +25,8 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
     private static float STARTING_COUNTDOWN_TIME = 5.0f;
     private float _TimeLeft = STARTING_COUNTDOWN_TIME;
 
+    private const string PRIMARY_GAMEPLAY_AUDIO_SOURCE = "GameplayPrefab(Clone)";
+
     public int TimeLeftOnCountdownInSeconds = 5;
 
     private string GAMEPLAY_PREFAB_PATH = "Prefabs/3D/GameplayPrefab";
@@ -121,6 +123,29 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
         SetupInGameUI();
 
         ToggleGameplayControlsListener(true);
+
+        // Set the primary gameplay audio source for the AudioManager to use.
+        StartCoroutine("DelayedSetupGameplayAudioSource");
+    }
+
+    public IEnumerator DelayedSetupGameplayAudioSource()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        SetupGameplayAudioSource();
+    }
+
+    public void SetupGameplayAudioSource()
+    {
+        GameObject audioSourceObj = GameObject.Find(PRIMARY_GAMEPLAY_AUDIO_SOURCE);
+        if (audioSourceObj != null)
+        {
+            AudioSource gameplayAudioSource = audioSourceObj.GetComponent<AudioSource>();
+            if (gameplayAudioSource != null)
+            {
+                AudioManager.Instance.SetGameplayAudioSource(gameplayAudioSource);
+            }
+        }
     }
 
     private void DestroyGameplayPrefab()

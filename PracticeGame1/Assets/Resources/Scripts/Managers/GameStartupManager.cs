@@ -18,6 +18,7 @@ public class GameStartupManager : MonoBehaviourSingleton<GameStartupManager>
 	public const string UI_MANAGER = "UIManager";
     public const string GAMEPLAY_MANAGER = "GameplayManager";
     public const string PLAYER_PREFS_MANAGER = "PlayerPrefsManager";
+    public const string AUDIO_MANAGER = "AudioManager";
 
     // List of manager name strings for each manager that will get instanced on startup.
     public List<string> ManagerNames = new List<string>();
@@ -38,7 +39,8 @@ public class GameStartupManager : MonoBehaviourSingleton<GameStartupManager>
 		ManagerNames.Add (SCREEN_MANAGER);
 		ManagerNames.Add (UI_MANAGER);
         ManagerNames.Add (GAMEPLAY_MANAGER);
-        ManagerNames.Add(PLAYER_PREFS_MANAGER);
+        ManagerNames.Add (PLAYER_PREFS_MANAGER);
+        ManagerNames.Add (AUDIO_MANAGER);
 
         // Iterate through all scenes in the list and create an instance of each as a child under the GameStartupManager GameObject.
         if (ManagerNames.Count > 0)

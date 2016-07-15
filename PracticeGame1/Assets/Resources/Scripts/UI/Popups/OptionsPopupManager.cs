@@ -67,5 +67,8 @@ public class OptionsPopupManager : MonoBehaviour
 
             Debug.Log("PlayerPrefs for MuteGameplayMusicIntVal set to 0 (false). Gameplay music now un-muted.");
         }
+
+        // TODO make this check for if in game first in the future.
+        AudioManager.Instance.PlayGameplayMusic();
     }
 }
