@@ -338,12 +338,12 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
             GameObject popupToClose = GameObject.Find(LoadedPopupNames[LoadedPopupNames.Count - 1] + "(Clone)");
             if (popupToClose != null)
             {
-                // Destroy the popup.
-                Destroy(popupToClose);
                 // Remove the popups name from the active loaded list of popups we have.
                 Debug.LogFormat("UIManager.CloseLastPopupListed - Closing the {0} popup.", LoadedPopupNames[LoadedPopupNames.Count - 1].ToString());
+                LoadedPopups.RemoveAt(LoadedPopupNames.Count - 1);
+                // Destroy the popup.
+                Destroy(popupToClose);
                 LoadedPopupNames.Remove(LoadedPopupNames[LoadedPopupNames.Count - 1]);
-                LoadedPopups.Remove(popupToClose);
             }
             else
             {

@@ -1,0 +1,13 @@
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_bin\Debug\Assembly-CSharp-firstpass.dll
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_bin\Debug\Assembly-CSharp-firstpass.pdb
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_bin\Debug\UnityEditor.dll
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_bin\Debug\UnityEngine.dll
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_bin\Debug\UnityEngine.Networking.dll
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_bin\Debug\UnityEngine.xml
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_bin\Debug\UnityEngine.Networking.xml
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_bin\Debug\UnityEditor.xml
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_obj\Debug\PracticeGame1.CSharp.Plugins.csprojResolveAssemblyReference.cache
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_obj\Debug\Assembly-CSharp-firstpass.dll
+S:\UnityGameProjects\PracticeGame1Project\PracticeGame1\PracticeGame1\Temp\UnityVS_obj\Debug\Assembly-CSharp-firstpass.pdb
