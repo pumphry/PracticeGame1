@@ -1,0 +1,22 @@
+print "Starting maya loading and fbx conversion \n";
+			
+if (`file -q -exists "S:/UNITYG~1/PRACTI~2/PRACTI~1/PRACTI~2/Assets/RESOUR~1/Models/OBSTAC~1/Pike.mb"`)
+{
+	file -o "S:/UNITYG~1/PRACTI~2/PRACTI~1/PRACTI~2/Assets/RESOUR~1/Models/OBSTAC~1/Pike.mb";
+	FBXExportEmbeddedTextures -v false;
+	// FBXExportHardEdges -v true;
+	FBXExportApplyConstantKeyReducer -v false;
+	FBXExportShowUI -v false;
+
+	print "Before fbx export\n";
+	FBXExport -f "S:/UNITYG~1/PRACTI~2/PRACTI~1/PRACTI~2/Temp/ExportedFBXFile.fbx";
+	print "after fbx export\n";
+}
+else
+	print "Could not open Maya file.";
+
+system ("del \"S:\\UNITYG~1\\PRACTI~2\\PRACTI~1\\PRACTI~2\\Temp\\CommandPipe\"");
+
+$donepipeKill = `fopen "S:/UNITYG~1/PRACTI~2/PRACTI~1/PRACTI~2/Temp/SyncPipeKill" "w"`;
+fwrite $donepipeKill "Done";
+fclose $donepipeKill;

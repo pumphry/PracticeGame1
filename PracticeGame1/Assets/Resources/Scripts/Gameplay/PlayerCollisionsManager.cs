@@ -12,6 +12,16 @@ public class PlayerCollisionsManager : MonoBehaviour {
     {
         if(GameplayManager.Instance != null)
         {
+            if (other.tag == "Obstacle")
+            {
+                CreateGameOverPopup("You hit an obstacle!");
+            }
+
+            if (other.tag == "Pike")
+            {
+                CreateGameOverPopup("Ouch! You ran into a row of pikes!");
+            }
+
             if (other.tag == "Building")
             {
                 CreateGameOverPopup("You hit a building!");
