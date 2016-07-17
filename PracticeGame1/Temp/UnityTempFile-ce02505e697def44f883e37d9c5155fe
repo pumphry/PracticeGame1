@@ -81,8 +81,10 @@
 -define:CROSS_PLATFORM_INPUT
 Assets/Resources/Scripts/DummyScript.cs
 Assets/Resources/Scripts/Gameplay/BuildingManager.cs
-Assets/Resources/Scripts/Gameplay/BuildingSpawnerManager.cs
+Assets/Resources/Scripts/Gameplay/MovingRoadTexture.cs
+Assets/Resources/Scripts/Gameplay/ObstacleSpawnerManager.cs
 Assets/Resources/Scripts/Gameplay/PlayerCollisionsManager.cs
+Assets/Resources/Scripts/Gameplay/TestSpawnScripts/BuildingSpawnerManager.cs
 Assets/Resources/Scripts/Managers/AudioManager.cs
 Assets/Resources/Scripts/Managers/GameStartupManager.cs
 Assets/Resources/Scripts/Managers/GameplayManager.cs

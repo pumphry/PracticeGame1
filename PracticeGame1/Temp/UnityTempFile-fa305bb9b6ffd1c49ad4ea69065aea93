@@ -1,22 +1,12 @@
 -debug
 -target:library
 -nowarn:0169
--out:Temp/Assembly-CSharp-Editor.dll
+-out:Temp/Assembly-CSharp.dll
 -r:"C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll"
--r:"C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll"
 -r:Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll
--r:Library/ScriptAssemblies/Assembly-CSharp.dll
--r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll"
--r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/nunit.framework.dll"
--r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/EditorTestsRunner/Editor/UnityEditor.EditorTestsRunner.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
--r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll"
--r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll"
--r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll"
--r:"C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll"
--r:"C:/Program Files/Unity/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll"
--r:"C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/2015/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll"
+-r:"C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll"
 -define:UNITY_5_3_OR_NEWER
 -define:UNITY_5_3_5
 -define:UNITY_5_3
@@ -89,20 +79,23 @@
 -define:UNITY_EDITOR_64
 -define:UNITY_EDITOR_WIN
 -define:CROSS_PLATFORM_INPUT
-Assets/Editor/CrossPlatformInput/CrossPlatformInputInitialize.cs
-Assets/Editor/ImageEffects/AntialiasingEditor.cs
-Assets/Editor/ImageEffects/BloomAndFlaresEditor.cs
-Assets/Editor/ImageEffects/BloomEditor.cs
-Assets/Editor/ImageEffects/CameraMotionBlurEditor.cs
-Assets/Editor/ImageEffects/ColorCorrectionCurvesEditor.cs
-Assets/Editor/ImageEffects/ColorCorrectionLookupEditor.cs
-Assets/Editor/ImageEffects/CreaseShadingEditor.cs
-Assets/Editor/ImageEffects/DepthOfFieldDeprecatedEditor.cs
-Assets/Editor/ImageEffects/DepthOfFieldEditor.cs
-Assets/Editor/ImageEffects/EdgeDetectionEditor.cs
-Assets/Editor/ImageEffects/NoiseAndGrainEditor.cs
-Assets/Editor/ImageEffects/SunShaftsEditor.cs
-Assets/Editor/ImageEffects/TonemappingEditor.cs
-Assets/Editor/ImageEffects/VignetteAndChromaticAberrationEditor.cs
--r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\2.0\System.Runtime.Serialization.dll"
--r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\2.0\System.Xml.Linq.dll"
+Assets/Resources/Scripts/DummyScript.cs
+Assets/Resources/Scripts/Gameplay/BuildingManager.cs
+Assets/Resources/Scripts/Gameplay/MovingRoadTexture.cs
+Assets/Resources/Scripts/Gameplay/ObstacleSpawnerManager.cs
+Assets/Resources/Scripts/Gameplay/PlayerCollisionsManager.cs
+Assets/Resources/Scripts/Gameplay/TestSpawnScripts/BuildingSpawnerManager.cs
+Assets/Resources/Scripts/Managers/AudioManager.cs
+Assets/Resources/Scripts/Managers/GameStartupManager.cs
+Assets/Resources/Scripts/Managers/GameplayManager.cs
+Assets/Resources/Scripts/Managers/PlayerPrefsManager.cs
+Assets/Resources/Scripts/Managers/ScreenManager.cs
+Assets/Resources/Scripts/Managers/UIManager.cs
+Assets/Resources/Scripts/MonoBehaviourSingleton.cs
+Assets/Resources/Scripts/UI/Overlays/GameplayHudManager.cs
+Assets/Resources/Scripts/UI/Popups/GameOverPopup.cs
+Assets/Resources/Scripts/UI/Popups/OptionsPopupManager.cs
+Assets/Resources/Scripts/UI/Screens/MainMenuScreenManager.cs
+Assets/Resources/Scripts/UI/Screens/PauseGameplayScreenManager.cs
+-r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\System.Runtime.Serialization.dll"
+-r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\System.Xml.Linq.dll"

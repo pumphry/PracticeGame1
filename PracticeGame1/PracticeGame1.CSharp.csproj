@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Assets\Resources\Scripts\DummyScript.cs" />
     <Compile Include="Assets\Resources\Scripts\Gameplay\BuildingManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\Gameplay\MovingRoadTexture.cs" />
     <Compile Include="Assets\Resources\Scripts\Gameplay\ObstacleSpawnerManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Gameplay\PlayerCollisionsManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Gameplay\TestSpawnScripts\BuildingSpawnerManager.cs" />
