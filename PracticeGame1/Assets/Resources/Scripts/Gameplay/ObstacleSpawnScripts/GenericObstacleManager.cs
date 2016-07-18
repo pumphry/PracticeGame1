@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class BuildingManager : MonoBehaviour
+public class GenericObstacleManager : MonoBehaviour
 {
     private bool _StartMovingOnTrack = false;
 

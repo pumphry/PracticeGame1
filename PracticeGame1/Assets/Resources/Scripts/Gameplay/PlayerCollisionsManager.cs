@@ -15,16 +15,22 @@ public class PlayerCollisionsManager : MonoBehaviour {
             if (other.tag == "Obstacle")
             {
                 CreateGameOverPopup("You hit an obstacle!");
+
+                return;
             }
 
             if (other.tag == "Pike")
             {
                 CreateGameOverPopup("Ouch! You ran into a row of pikes!");
+
+                return;
             }
 
-            if (other.tag == "Building")
+            if (other.tag == "Hill")
             {
-                CreateGameOverPopup("You hit a building!");
+                CreateGameOverPopup("Ugh! You tripped over a hill!");
+
+                return;
             }
         }
     }
