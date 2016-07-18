@@ -12,6 +12,8 @@ public class GenericObstacleManager : MonoBehaviour
 
     private Vector3 _PositionToLerpTo = Vector3.zero;
 
+    private const float DESTROY_Z_DISTANCE_THRESHOLD = -100f;
+
     public void Init(float trackSpeed)
     {
         TrackSpeed = trackSpeed;
@@ -28,6 +30,12 @@ public class GenericObstacleManager : MonoBehaviour
         {
             // Building moves on track at a speed over time.
             transform.position = Vector3.Lerp(transform.position, _PositionToLerpTo, TrackSpeed);
+
+            // Destroy if it passes a certain threshold distance.
+            if(this.transform.position.z <= DESTROY_Z_DISTANCE_THRESHOLD)
+            {
+                DestroyImmediate(this.gameObject);
+            }
         }
     }
 }
