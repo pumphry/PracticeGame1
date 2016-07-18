@@ -14,6 +14,7 @@ public class ObstacleSpawnerManager : MonoBehaviour
     private const string EMPTY_OBSTACLE_ASSET_PATH = "Prefabs/3D/Obstacles/EmptyObstacle";
     private const string PIKE_ASSET_PATH = "Prefabs/3D/Obstacles/Pike";
     private const string HILL_ASSET_PATH = "Prefabs/3D/Obstacles/Hill";
+    private const string TEST_ENEMY_AI_ASSET_PATH = "Prefabs/3D/Obstacles/TestEnemyAIObstacle";
 
     private const int EMPTY_OBSTACLE_INDEX_NUM = 0;
 
@@ -45,12 +46,18 @@ public class ObstacleSpawnerManager : MonoBehaviour
         _SpawnTimeFullInterval = BASE_ROW_SPAWN_TIME_INTERVAL;
 
         // Add all the obstacle location paths to the ObstacleObjectPaths list before we begin spawning obstacles.
-        ObstacleObjectPaths.Add(EMPTY_OBSTACLE_ASSET_PATH);
-        ObstacleObjectPaths.Add(PIKE_ASSET_PATH);
-        ObstacleObjectPaths.Add(HILL_ASSET_PATH);
+        AddObstaclesToObstaclePathList();
 
         // Do everything necessary for initialization prior to this being true.
         _ObstacleSpawnerManagerInitialized = true;
+    }
+
+    private void AddObstaclesToObstaclePathList()
+    {
+        ObstacleObjectPaths.Add(EMPTY_OBSTACLE_ASSET_PATH);
+        ObstacleObjectPaths.Add(PIKE_ASSET_PATH);
+        ObstacleObjectPaths.Add(HILL_ASSET_PATH);
+        ObstacleObjectPaths.Add(TEST_ENEMY_AI_ASSET_PATH);
     }
 	
 	// Update is called once per frame

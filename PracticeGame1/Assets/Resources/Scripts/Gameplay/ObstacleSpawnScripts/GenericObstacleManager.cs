@@ -14,9 +14,13 @@ public class GenericObstacleManager : MonoBehaviour
 
     private const float DESTROY_Z_DISTANCE_THRESHOLD = -100f;
 
+    private Vector3 _SetRotationAngle;
+
     public void Init(float trackSpeed)
     {
         TrackSpeed = trackSpeed;
+
+        _SetRotationAngle = new Vector3(0f, 0f, 0f);
 
         _PositionToLerpTo = new Vector3(this.transform.position.x, this.transform.position.y, -150f);
 
@@ -30,6 +34,7 @@ public class GenericObstacleManager : MonoBehaviour
         {
             // Building moves on track at a speed over time.
             transform.position = Vector3.Lerp(transform.position, _PositionToLerpTo, TrackSpeed);
+            transform.localEulerAngles = _SetRotationAngle;
 
             // Destroy if it passes a certain threshold distance.
             if(this.transform.position.z <= DESTROY_Z_DISTANCE_THRESHOLD)

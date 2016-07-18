@@ -36,6 +36,13 @@ public class PlayerCollisionsManager : MonoBehaviour {
 
                 return;
             }
+
+            if (other.tag == "Enemy")
+            {
+                CreateGameOverPopup("Oh no an enemy has caught you!");
+
+                return;
+            }
         }
     }
 
