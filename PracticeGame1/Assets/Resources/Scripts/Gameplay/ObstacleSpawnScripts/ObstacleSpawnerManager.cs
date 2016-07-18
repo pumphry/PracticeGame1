@@ -11,8 +11,11 @@ public class ObstacleSpawnerManager : MonoBehaviour
 {
     private bool _ObstacleSpawnerManagerInitialized = false;
 
+    private const string EMPTY_OBSTACLE_ASSET_PATH = "Prefabs/3D/Obstacles/EmptyObstacle";
     private const string PIKE_ASSET_PATH = "Prefabs/3D/Obstacles/Pike";
     private const string HILL_ASSET_PATH = "Prefabs/3D/Obstacles/Hill";
+
+    private const int EMPTY_OBSTACLE_INDEX_NUM = 0;
 
     public int MaxBuildingsPerSpawnRow = 4;
     public int MinBuildingsPerSpawnRow = 0;
@@ -42,6 +45,7 @@ public class ObstacleSpawnerManager : MonoBehaviour
         _SpawnTimeFullInterval = BASE_ROW_SPAWN_TIME_INTERVAL;
 
         // Add all the obstacle location paths to the ObstacleObjectPaths list before we begin spawning obstacles.
+        ObstacleObjectPaths.Add(EMPTY_OBSTACLE_ASSET_PATH);
         ObstacleObjectPaths.Add(PIKE_ASSET_PATH);
         ObstacleObjectPaths.Add(HILL_ASSET_PATH);
 
@@ -77,26 +81,43 @@ public class ObstacleSpawnerManager : MonoBehaviour
 	}
 
     /// <summary>
-    /// Spawn obstacles.
+    /// Spawn obstacles in a row.
     /// </summary>
     private void SpawnObstacles()
     {
-        // TODO Replace this with actualy range min/max values I have above when they work.
-        int numOfBuildingsToSpawn = UnityEngine.Random.Range(0, 4);
+        int guaranteedEmptyObstacleSpawnPoint = UnityEngine.Random.Range(0, RowBuildingSpawnPoints.Count);
 
-        for(int i = 0; i < numOfBuildingsToSpawn; i++)
+        for (int spawnPointNum = 0; spawnPointNum < RowBuildingSpawnPoints.Count; spawnPointNum++)
         {
             int obstacleToSpawnIndex = UnityEngine.Random.Range(0, ObstacleObjectPaths.Count);
 
-            // Spawn a random obstacle at one of the spawn points while not spawning multiples at that spawn point.
-            GameObject obstacle = Instantiate(Resources.Load(ObstacleObjectPaths[obstacleToSpawnIndex], typeof(GameObject))) as GameObject;
+            GameObject obstacle = null;
 
-            obstacle.transform.SetParent(RowBuildingSpawnPoints[i].transform);
-            obstacle.transform.localPosition = Vector3.zero;
+            // If the spawnPointNum is not the same as the guaranteed empty spawn point num, then spawn an obstacle at random. Else, spawn an empty obstacle to give the player a guaranteed escape route.
+            if (spawnPointNum != guaranteedEmptyObstacleSpawnPoint)
+            {
+                // Spawn a random obstacle at one of the spawn points while not spawning multiples at that spawn point.
+                obstacle = Instantiate(Resources.Load(ObstacleObjectPaths[obstacleToSpawnIndex], typeof(GameObject))) as GameObject;
+            }
+            else
+            {
+                // Spawn a random obstacle at one of the spawn points while not spawning multiples at that spawn point.
+                obstacle = Instantiate(Resources.Load(ObstacleObjectPaths[EMPTY_OBSTACLE_INDEX_NUM], typeof(GameObject))) as GameObject;
+            }
 
-            Debug.LogFormat("Spawn a {0} at the spawn location #{1}.", ObstacleObjectPaths[obstacleToSpawnIndex], i);
+            if (obstacle != null)
+            {
+                obstacle.transform.SetParent(RowBuildingSpawnPoints[spawnPointNum].transform);
+                obstacle.transform.localPosition = Vector3.zero;
 
-            InitSpawnedObstacleScript(obstacle);
+                Debug.LogFormat("Spawn a {0} at the spawn location #{1}.", ObstacleObjectPaths[obstacleToSpawnIndex], spawnPointNum);
+
+                InitSpawnedObstacleScript(obstacle);
+            }
+            else
+            {
+                Debug.LogError("Obstacle to spawn is null!");
+            }
         }
     }
 

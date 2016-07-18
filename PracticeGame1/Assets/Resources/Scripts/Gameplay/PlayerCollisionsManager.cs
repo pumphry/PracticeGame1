@@ -8,6 +8,10 @@ public class PlayerCollisionsManager : MonoBehaviour {
 	
 	}
 
+    /// <summary>
+    /// Check for tag names for anything the player object collides with to see if it triggers something in the gameplay.
+    /// </summary>
+    /// <param name="other"></param>
     void OnTriggerEnter(Collider other)
     {
         if(GameplayManager.Instance != null)
