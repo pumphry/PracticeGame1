@@ -10,6 +10,8 @@ using UnityStandardAssets.Characters.ThirdPerson;
 /// </summary>
 public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 {
+    public GameplayPrefabManager GameplayPrefabManager;
+
     // Speed at which the moving track of incoming objects moves towards the player during the infinite runner gameplay.
     public float GameplayTrackSpeed = 0.001f;
 
@@ -18,8 +20,6 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
     private bool _GameplayStarted = false;
     private bool _GameplayControlsListenerOn = false;
     private bool _StartGameCountdownFinished = false;
-
-    private GameplayPrefabManager _GameplayPrefabManager;
 
     private GameObject _ThirdPersonController;
     private ThirdPersonUserControl _ThirdPersonUserControlScript;
@@ -110,8 +110,8 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 
             gameplayPrefab.transform.position = Vector3.zero;
 
-            _GameplayPrefabManager = gameplayPrefab.GetComponent<GameplayPrefabManager>();
-            _GameplayPrefabManager.Init();
+            GameplayPrefabManager = gameplayPrefab.GetComponent<GameplayPrefabManager>();
+            GameplayPrefabManager.Init();
         }
         else
         {
