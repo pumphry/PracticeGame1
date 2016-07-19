@@ -43,6 +43,13 @@ public class PlayerCollisionsManager : MonoBehaviour {
 
                 return;
             }
+
+            if (other.tag == "Projectile")
+            {
+                CreateGameOverPopup("You were shot by an archer!");
+
+                return;
+            }
         }
     }
 

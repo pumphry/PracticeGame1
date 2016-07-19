@@ -15,6 +15,7 @@ public class ObstacleSpawnerManager : MonoBehaviour
     private const string PIKE_ASSET_PATH = "Prefabs/3D/Obstacles/Pike";
     private const string HILL_ASSET_PATH = "Prefabs/3D/Obstacles/Hill";
     private const string TEST_ENEMY_AI_ASSET_PATH = "Prefabs/3D/Obstacles/TestEnemyAIObstacle";
+    private const string ARCHER_ENEMY_AI_ASSET_PATH = "Prefabs/3D/Obstacles/TestArcherAIObstacle";
 
     private const int EMPTY_OBSTACLE_INDEX_NUM = 0;
 
@@ -58,6 +59,7 @@ public class ObstacleSpawnerManager : MonoBehaviour
         ObstacleObjectPaths.Add(PIKE_ASSET_PATH);
         ObstacleObjectPaths.Add(HILL_ASSET_PATH);
         ObstacleObjectPaths.Add(TEST_ENEMY_AI_ASSET_PATH);
+        ObstacleObjectPaths.Add(ARCHER_ENEMY_AI_ASSET_PATH);
     }
 	
 	// Update is called once per frame
@@ -130,14 +132,37 @@ public class ObstacleSpawnerManager : MonoBehaviour
 
     private void InitSpawnedObstacleScript(GameObject obstacle)
     {
-        GenericObstacleManager genericObstacleScript = obstacle.GetComponent<GenericObstacleManager>();
-        if (genericObstacleScript != null)
+        if (obstacle.GetComponent<GenericObstacleManager>() != null)
         {
-            genericObstacleScript.Init(_TrackSpeed);
+            GenericObstacleManager genericObstacleScript = obstacle.GetComponent<GenericObstacleManager>();
+            if (genericObstacleScript != null)
+            {
+                genericObstacleScript.Init(_TrackSpeed);
+            }
+            else
+            {
+                DestroyImmediate(obstacle);
+            }
+
+            return;
+        }
+        else if (obstacle.GetComponent<ArcherObstacleManager>() != null)
+        {
+            ArcherObstacleManager archerObstacleScript = obstacle.GetComponent<ArcherObstacleManager>();
+            if (archerObstacleScript != null)
+            {
+                archerObstacleScript.Init(_TrackSpeed);
+            }
+            else
+            {
+                DestroyImmediate(obstacle);
+            }
+
+            return;
         }
         else
         {
-            DestroyImmediate(obstacle);
+            return;
         }
     }
 }

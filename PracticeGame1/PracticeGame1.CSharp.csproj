@@ -94,7 +94,9 @@
     <Compile Include="Assets\GUI Animator\GUI Animator FREE\Demo (CSharp)\Scripts\GA_FREE_OpenOtherScene.cs" />
     <Compile Include="Assets\GUI Animator\GUI Animator FREE\Demo Basic (CSharp)\Scripts\GUIAnimatorFREEDemo.cs" />
     <Compile Include="Assets\Resources\Scripts\DummyScript.cs" />
+    <Compile Include="Assets\Resources\Scripts\Gameplay\BaseProjectileManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Gameplay\MovingRoadTexture.cs" />
+    <Compile Include="Assets\Resources\Scripts\Gameplay\ObstacleSpawnScripts\ArcherObstacleManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Gameplay\ObstacleSpawnScripts\GenericObstacleManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Gameplay\ObstacleSpawnScripts\ObstacleSpawnerManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Gameplay\PlayerCollisionsManager.cs" />
