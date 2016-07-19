@@ -17,24 +17,40 @@ public class ArcherObstacleManager : GenericObstacleManager
 
     private Vector3 _StartingArrowPosition = new Vector3(0f, 1f, 0f);
 
+    private bool _RandomizedCountdownTimeSet = false;
+
+    private bool _InRangeOfPlayer = false;
+
+    void Start()
+    {
+        ProjectileFireCountdownStartTime = UnityEngine.Random.Range(3.0f, 6.0f);
+
+        _RandomizedCountdownTimeSet = true;
+    }
+
     void Update()
     {
         UpdateObstacle();
 
         CountdownToProjectileFire();
     }
-    
+
     public void CountdownToProjectileFire()
     {
-        if(StartMovingOnTrack && !GameplayManager.Instance.GameplayPaused)
+        if (StartMovingOnTrack && !GameplayManager.Instance.GameplayPaused && _RandomizedCountdownTimeSet)
         {
             _CurrentProjectileFireCountdownTime -= Time.deltaTime;
 
-            if(_CurrentProjectileFireCountdownTime <= 0f)
+            if (_CurrentProjectileFireCountdownTime <= 0f)
             {
-                _CurrentProjectileFireCountdownTime = ProjectileFireCountdownStartTime;
+                int numToDetermineIfFire = UnityEngine.Random.Range(0, 3);
 
-                FireArrow();
+                if (numToDetermineIfFire > 0)
+                {
+                    FireArrow();
+                }
+
+                _CurrentProjectileFireCountdownTime = ProjectileFireCountdownStartTime;
             }
         }
     }
@@ -47,14 +63,14 @@ public class ArcherObstacleManager : GenericObstacleManager
 
         BaseProjectileManager projectileManager = null;
 
-        if(projectile != null)
+        if (projectile != null && _InRangeOfPlayer)
         {
             projectile.transform.parent = this.transform;
             projectile.transform.localPosition = _StartingArrowPosition;
 
             projectileManager = projectile.GetComponent<BaseProjectileManager>();
 
-            if(projectileManager != null)
+            if (projectileManager != null)
             {
                 projectileManager.Init(0.001f);
 
@@ -68,6 +84,14 @@ public class ArcherObstacleManager : GenericObstacleManager
         else
         {
             DestroyImmediate(projectile.gameObject);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "ProjectileRange")
+        {
+            _InRangeOfPlayer = true;
         }
     }
 }
