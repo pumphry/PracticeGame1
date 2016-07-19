@@ -19,6 +19,8 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
     private bool _GameplayControlsListenerOn = false;
     private bool _StartGameCountdownFinished = false;
 
+    private GameplayPrefabManager _GameplayPrefabManager;
+
     private GameObject _ThirdPersonController;
     private ThirdPersonUserControl _ThirdPersonUserControlScript;
 
@@ -107,6 +109,9 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
             Debug.LogFormat("Gameplay prefab instanced.");
 
             gameplayPrefab.transform.position = Vector3.zero;
+
+            _GameplayPrefabManager = gameplayPrefab.GetComponent<GameplayPrefabManager>();
+            _GameplayPrefabManager.Init();
         }
         else
         {
