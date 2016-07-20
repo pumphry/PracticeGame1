@@ -101,6 +101,7 @@
     <Compile Include="Assets\Resources\Scripts\Gameplay\ObstacleSpawnScripts\GenericObstacleManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Gameplay\ObstacleSpawnScripts\ObstacleSpawnerManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Gameplay\PlayerCollisionsManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\Gameplay\PlayerControls\InfiniteRunnerPlayerController.cs" />
     <Compile Include="Assets\Resources\Scripts\Managers\AudioManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Managers\GameStartupManager.cs" />
     <Compile Include="Assets\Resources\Scripts\Managers\GameplayManager.cs" />

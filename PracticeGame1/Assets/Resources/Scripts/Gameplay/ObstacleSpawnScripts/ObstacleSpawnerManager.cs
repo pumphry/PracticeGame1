@@ -19,9 +19,6 @@ public class ObstacleSpawnerManager : MonoBehaviour
 
     private const int EMPTY_OBSTACLE_INDEX_NUM = 0;
 
-    public int MaxBuildingsPerSpawnRow = 4;
-    public int MinBuildingsPerSpawnRow = 0;
-
     public List<Transform> RowBuildingSpawnPoints = new List<Transform>();
 
     public List<string> ObstacleObjectPaths = new List<string>();
