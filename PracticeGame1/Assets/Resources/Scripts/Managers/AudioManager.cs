@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
     public List<AudioSource> ActiveAudioSources = new List<AudioSource>();
 
     public enum AudioSources { FrontEndAudioSources, GameplayAudioSources };
+    public AudioSources CurrentAudioSources = AudioSources.FrontEndAudioSources;
 
     // Music
     public AudioClip GameplayMusicTrack1;
@@ -45,6 +46,7 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
             FrontEndAudioSources = frontEndAudioScources;
 
             ActiveAudioSources = FrontEndAudioSources;
+            CurrentAudioSources = AudioSources.FrontEndAudioSources;
         }
     }
 
@@ -60,6 +62,8 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
     {
         if (audioSourcesToToggleOn == AudioSources.FrontEndAudioSources)
         {
+            CurrentAudioSources = AudioSources.FrontEndAudioSources;
+
             ActiveAudioSources.Clear();
 
             ActiveAudioSources = FrontEndAudioSources;
@@ -79,6 +83,8 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
 
         if (audioSourcesToToggleOn == AudioSources.GameplayAudioSources)
         {
+            CurrentAudioSources = AudioSources.GameplayAudioSources;
+
             ActiveAudioSources.Clear();
 
             ActiveAudioSources = GameplayAudioSources;
@@ -101,8 +107,11 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
     {
         if (PlayerPrefsManager.Instance.GetPlayerPrefIntVal(PlayerPrefsManager.PlayerPrefKeyNames.MuteGameplayMusicIntVal) == 0)
         {
-            // Play music.
-            PlayMusicTrack();
+            if (CurrentAudioSources == AudioSources.GameplayAudioSources)
+            {
+                // Play music.
+                PlayMusicTrack();
+            }
         }
         else
         {
