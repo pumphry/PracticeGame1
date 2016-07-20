@@ -18,52 +18,53 @@ public class PlayerCollisionsManager : MonoBehaviour {
         {
             if (other.tag == "Obstacle")
             {
-                CreateGameOverPopup("You hit an obstacle!");
+                EnterGameOverPhase("You hit an obstacle!");
 
                 return;
             }
 
             if (other.tag == "Pike")
             {
-                CreateGameOverPopup("Ouch! You ran into a row of pikes!");
+                EnterGameOverPhase("Ouch! You ran into a row of pikes!");
 
                 return;
             }
 
             if (other.tag == "Hill")
             {
-                CreateGameOverPopup("Ugh! You tripped over a hill!");
+                EnterGameOverPhase("Ugh! You tripped over a hill!");
 
                 return;
             }
 
             if (other.tag == "Enemy")
             {
-                CreateGameOverPopup("Oh no an enemy has caught you!");
+                EnterGameOverPhase("Oh no an enemy has caught you!");
 
                 return;
             }
 
             if (other.tag == "Projectile")
             {
-                CreateGameOverPopup("You were shot by an archer!");
+                EnterGameOverPhase("You were shot by an archer!");
 
                 return;
             }
         }
     }
 
-    private void CreateGameOverPopup(string message)
+    private void EnterGameOverPhase(string gameOverMessage)
     {
-        GameplayManager.Instance.OpenGameOverPopup();
+        GameplayManager.Instance.EnterGameOverPhase();
 
+        // When the GameplayManager enters the game over phase it creates a GameOverPopup clone. Find it and init it.
         GameObject popup = GameObject.Find("GameOverPopup(Clone)");
         if (popup != null)
         {
             GameOverPopup popupScript = popup.GetComponent<GameOverPopup>();
             if (popupScript != null)
             {
-                popupScript.Init(message);
+                popupScript.Init(gameOverMessage);
             }
         }
     }

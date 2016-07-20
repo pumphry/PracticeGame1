@@ -12,10 +12,12 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 {
     public GameplayPrefabManager GameplayPrefabManager;
 
-    // Speed at which the moving track of incoming objects moves towards the player during the infinite runner gameplay.
-    public float GameplayTrackSpeed = 0.001f;
+    public bool GameOver = false;
 
     public bool GameplayPaused = false;
+
+    // Speed at which the moving track of incoming objects moves towards the player during the infinite runner gameplay.
+    public float GameplayTrackSpeed = 0.001f;
 
     private bool _GameplayStarted = false;
     private bool _GameplayControlsListenerOn = false;
@@ -80,6 +82,7 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
     {
         Debug.Log("Gameplay instance is being created.");
 
+        GameOver = false;
         GameplayPaused = false;
         Time.timeScale = 1.0f;
         _StartGameCountdownFinished = false;
@@ -175,6 +178,8 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 
     public void ExitGameAndReturnToFrontend()
     {
+        GameOver = true;
+
         UIManager.Instance.ToggleFrontendUI(true);
 
         DestroyGameplayPrefab();
@@ -185,6 +190,13 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
         _GameplayControlsListenerOn = isActive;
     }
     
+    public void EnterGameOverPhase()
+    {
+        GameOver = true;
+
+        OpenGameOverPopup();
+    }
+
     public void OpenGameOverPopup()
     {
         TogglePauseGameplay(false);
@@ -219,6 +231,19 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
         if (showPauseScreen)
         {
             UIManager.Instance.ToggleScreenActive(UIManager.UIScreens.PauseGameplayScreen, GameplayPaused);
+        }
+    }
+
+    public void DetermineIfBestRunTime(float runTimeDuration)
+    {
+        float previousBestRunTime = PlayerPrefsManager.Instance.GetPlayerPrefFloatVal(PlayerPrefsManager.PlayerPrefKeyNames.BestTimeFloatVal);
+
+        if(runTimeDuration > previousBestRunTime)
+        {
+            // Player has set a new best time! Make sure to save it to the player prefs.
+            PlayerPrefsManager.Instance.SetPlayerPrefFloatVal(PlayerPrefsManager.PlayerPrefKeyNames.BestTimeFloatVal, runTimeDuration);
+
+            Debug.LogFormat("New best run time: {0} seconds!", runTimeDuration.ToString("F2"));
         }
     }
 }
