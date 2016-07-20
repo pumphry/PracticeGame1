@@ -10,11 +10,11 @@ using System.Collections.Generic;
 public class AudioManager : MonoBehaviourSingleton<AudioManager>
 {
     // Audio Sources
-    public AudioSource GameplayAudioSource;
-    public AudioSource FrontEndAudioSource;
-    public AudioSource ActiveAudioSource;
+    public List<AudioSource> GameplayAudioSources = new List<AudioSource>();
+    public List<AudioSource> FrontEndAudioSources = new List<AudioSource>();
+    public List<AudioSource> ActiveAudioSources = new List<AudioSource>();
 
-    public enum AudioSources { FrontEndAudioSource, GameplayAudioSource };
+    public enum AudioSources { FrontEndAudioSources, GameplayAudioSources };
 
     // Music
     public AudioClip GameplayMusicTrack1;
@@ -34,46 +34,64 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
         Debug.Assert(OuchSFX != null);
         Debug.Assert(BowShotSFX != null);
         Debug.Assert(PopupOpeningSFX != null);
-
-        ActiveAudioSource = FrontEndAudioSource;
     }
 
-    public void SetFrontEndAudioScource(AudioSource frontEndAudioScource)
+    public void SetFrontEndAudioScource(List<AudioSource> frontEndAudioScources)
     {
-        if(frontEndAudioScource != null)
+        if(frontEndAudioScources.Count > 0)
         {
-            FrontEndAudioSource = frontEndAudioScource;
+            FrontEndAudioSources = frontEndAudioScources;
+
+            ActiveAudioSources = FrontEndAudioSources;
         }
     }
 
-    public void SetGameplayAudioSource(AudioSource gameplayAudioSource)
+    public void SetGameplayAudioSource(List<AudioSource> gameplayAudioSources)
     {
-        if (gameplayAudioSource != null)
+        if (gameplayAudioSources.Count > 0)
         {
-            GameplayAudioSource = gameplayAudioSource;
+            GameplayAudioSources = gameplayAudioSources;
         }
     }
 
-    public void TogglePrimaryAudioSource(AudioSources audioSourceToToggleOn)
+    public void TogglePrimaryAudioSources(AudioSources audioSourcesToToggleOn)
     {
-        if (audioSourceToToggleOn == AudioSources.FrontEndAudioSource)
+        if (audioSourcesToToggleOn == AudioSources.FrontEndAudioSources)
         {
-            FrontEndAudioSource.gameObject.GetComponent<AudioListener>().enabled = true;
+            ActiveAudioSources.Clear();
 
-            ActiveAudioSource = FrontEndAudioSource;
+            ActiveAudioSources = FrontEndAudioSources;
 
-            FrontEndAudioSource.enabled = true;
-            GameplayAudioSource.enabled = false;
+            foreach (AudioSource audioSource in FrontEndAudioSources)
+            {
+                FrontEndAudioSources[0].gameObject.GetComponent<AudioListener>().enabled = true;
+
+                audioSource.enabled = true;
+            }
+
+            foreach (AudioSource audioSource in GameplayAudioSources)
+            {
+                audioSource.enabled = false;
+            }
         }
 
-        if (audioSourceToToggleOn == AudioSources.GameplayAudioSource)
+        if (audioSourcesToToggleOn == AudioSources.GameplayAudioSources)
         {
-            FrontEndAudioSource.gameObject.GetComponent<AudioListener>().enabled = false;
+            ActiveAudioSources.Clear();
 
-            ActiveAudioSource = GameplayAudioSource;
+            ActiveAudioSources = GameplayAudioSources;
 
-            FrontEndAudioSource.enabled = false;
-            GameplayAudioSource.enabled = true;
+            foreach (AudioSource audioSource in FrontEndAudioSources)
+            {
+                FrontEndAudioSources[0].gameObject.GetComponent<AudioListener>().enabled = false;
+
+                audioSource.enabled = false;
+            }
+
+            foreach (AudioSource audioSource in GameplayAudioSources)
+            {
+                audioSource.enabled = true;
+            }
         }
     }
 
@@ -93,45 +111,49 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
 
     public void PlayMusicTrack()
     {
-        if(ActiveAudioSource != null && ActiveAudioSource.enabled == true)
+        if(ActiveAudioSources[0] != null && ActiveAudioSources[0].enabled == true)
         {
-            ActiveAudioSource.clip = GameplayMusicTrack1;
-            ActiveAudioSource.Play();
-            ActiveAudioSource.loop = true;
+            ActiveAudioSources[0].clip = GameplayMusicTrack1;
+            ActiveAudioSources[0].Play();
+            ActiveAudioSources[0].loop = true;
         }
     }
 
     public void StopMusicTrack()
     {
-        if (ActiveAudioSource != null)
+        if (ActiveAudioSources[0] != null)
         {
-            ActiveAudioSource.clip = GameplayMusicTrack1;
-            ActiveAudioSource.Stop();
+            ActiveAudioSources[0].clip = GameplayMusicTrack1;
+            ActiveAudioSources[0].Stop();
         }
     }
 
     public void PlaySFXClip(SFXClips sfxClipToPlay)
     {
+        int indexClipToPlay = -1;
+
         switch(sfxClipToPlay)
         {
             case SFXClips.BowShotSFX:
-                ActiveAudioSource.clip = BowShotSFX; 
+                indexClipToPlay = 1;
+                ActiveAudioSources[1].clip = BowShotSFX; 
                 break;
             case SFXClips.OuchSFX:
-                ActiveAudioSource.clip = OuchSFX;
+                indexClipToPlay = 2;
+                ActiveAudioSources[2].clip = OuchSFX;
                 break;
             case SFXClips.PopupOpeningSFX:
-                ActiveAudioSource.clip = PopupOpeningSFX;
+                indexClipToPlay = 3;
+                ActiveAudioSources[3].clip = PopupOpeningSFX;
                 break;
             default:
-                ActiveAudioSource.clip = null;
                 break;
         }
 
-        if(ActiveAudioSource.clip != null)
+        if(indexClipToPlay >= 0 && ActiveAudioSources[indexClipToPlay].clip != null)
         {
-            ActiveAudioSource.loop = false;
-            ActiveAudioSource.Play();
+            ActiveAudioSources[indexClipToPlay].loop = false;
+            ActiveAudioSources[indexClipToPlay].Play();
         }
     }
 }

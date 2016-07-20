@@ -130,8 +130,6 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
         // Setup the gameplay UI.
         SetupInGameUI();
 
-        AudioManager.Instance.FrontEndAudioSource.GetComponent<AudioListener>().enabled = false;
-
         ToggleGameplayControlsListener(true);
 
         // Set the primary gameplay audio source for the AudioManager to use.
@@ -147,7 +145,7 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 
     public void TogglePrimaryAudioSource(AudioManager.AudioSources audioSourceToToggleTo)
     {
-        AudioManager.Instance.TogglePrimaryAudioSource(audioSourceToToggleTo);
+        AudioManager.Instance.TogglePrimaryAudioSources(audioSourceToToggleTo);
     }
 
     public void SetupGameplayAudioSource()
@@ -155,12 +153,20 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
         GameObject audioSourceObj = GameObject.Find(PRIMARY_GAMEPLAY_AUDIO_SOURCE);
         if (audioSourceObj != null)
         {
-            AudioSource gameplayAudioSource = audioSourceObj.GetComponent<AudioSource>();
-            if (gameplayAudioSource != null)
+            List<AudioSource> gameplayAudioSources = new List<AudioSource>();
+            AudioSource[] audioSourcesArray = audioSourceObj.GetComponents<AudioSource>();
+            foreach(AudioSource audioSource in audioSourcesArray)
             {
-                AudioManager.Instance.SetGameplayAudioSource(gameplayAudioSource);
+                gameplayAudioSources.Add(audioSource);
+            }
 
-                TogglePrimaryAudioSource(AudioManager.AudioSources.GameplayAudioSource);
+            if (gameplayAudioSources.Count > 0)
+            {
+                AudioManager.Instance.SetGameplayAudioSource(gameplayAudioSources);
+
+                TogglePrimaryAudioSource(AudioManager.AudioSources.GameplayAudioSources);
+
+                //AudioManager.Instance.FrontEndAudioSources[0].GetComponent<AudioListener>().enabled = false;
 
                 AudioManager.Instance.PlayGameplayMusic();
             }
@@ -195,7 +201,7 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 
         AudioManager.Instance.StopMusicTrack();
 
-        AudioManager.Instance.TogglePrimaryAudioSource(AudioManager.AudioSources.FrontEndAudioSource);
+        AudioManager.Instance.TogglePrimaryAudioSources(AudioManager.AudioSources.FrontEndAudioSources);
 
         DestroyGameplayPrefab();
     }
