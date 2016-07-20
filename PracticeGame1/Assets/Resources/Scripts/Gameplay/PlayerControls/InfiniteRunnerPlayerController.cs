@@ -30,6 +30,15 @@ public class InfiniteRunnerPlayerController : MonoBehaviour
     void Awake()
     {
         _InputBlocked = true;
+
+        StartCoroutine("WaitThenGivePlayerControl");
+    }
+
+    private IEnumerator WaitThenGivePlayerControl()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        _InputBlocked = false;
     }
 
     public void PopulatePlayerMovementZonesList(List<Transform> listOfPlayerMovementZones)
@@ -41,8 +50,6 @@ public class InfiniteRunnerPlayerController : MonoBehaviour
             CurrentZone = listOfPlayerMovementZones[2];
             _CurrentZoneIndex = 2;
             ZoneToMoveTo = CurrentZone;
-
-            _InputBlocked = false;
         }
     }
 
@@ -140,5 +147,7 @@ public class InfiniteRunnerPlayerController : MonoBehaviour
     private void JumpAction()
     {
         _PlayerJumping = true;
+
+        AudioManager.Instance.PlaySFXClip(AudioManager.SFXClips.YeahSFX);
     }
 }

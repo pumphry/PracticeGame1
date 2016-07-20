@@ -25,8 +25,9 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
     public AudioClip OuchSFX;
     public AudioClip BowShotSFX;
     public AudioClip PopupOpeningSFX;
+    public AudioClip YeahSFX;
 
-    public enum SFXClips { OuchSFX, BowShotSFX, PopupOpeningSFX };
+    public enum SFXClips { OuchSFX, BowShotSFX, PopupOpeningSFX, YeahSFX };
 
     // Use this for initialization
     void Start () {
@@ -34,6 +35,7 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
         Debug.Assert(OuchSFX != null);
         Debug.Assert(BowShotSFX != null);
         Debug.Assert(PopupOpeningSFX != null);
+        Debug.Assert(YeahSFX != null);
     }
 
     public void SetFrontEndAudioScource(List<AudioSource> frontEndAudioScources)
@@ -138,21 +140,37 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
             {
                 case SFXClips.BowShotSFX:
                     indexClipToPlay = 1;
-                    ActiveAudioSources[1].clip = BowShotSFX;
+                    if (ActiveAudioSources.Count >= indexClipToPlay)
+                    {
+                        ActiveAudioSources[1].clip = BowShotSFX;
+                    }
                     break;
                 case SFXClips.OuchSFX:
                     indexClipToPlay = 2;
-                    ActiveAudioSources[2].clip = OuchSFX;
+                    if (ActiveAudioSources.Count >= indexClipToPlay)
+                    {
+                        ActiveAudioSources[2].clip = OuchSFX;
+                    }
                     break;
                 case SFXClips.PopupOpeningSFX:
                     indexClipToPlay = 3;
-                    ActiveAudioSources[3].clip = PopupOpeningSFX;
+                    if (ActiveAudioSources.Count >= indexClipToPlay)
+                    {
+                        ActiveAudioSources[3].clip = PopupOpeningSFX;
+                    }
+                    break;
+                case SFXClips.YeahSFX:
+                    indexClipToPlay = 2;
+                    if (ActiveAudioSources.Count >= indexClipToPlay)
+                    {
+                        ActiveAudioSources[2].clip = YeahSFX;
+                    }
                     break;
                 default:
                     break;
             }
 
-            if (indexClipToPlay >= 0 && ActiveAudioSources[indexClipToPlay].clip != null)
+            if (indexClipToPlay >= 0 && ActiveAudioSources.Count >= indexClipToPlay && ActiveAudioSources[indexClipToPlay].clip != null)
             {
                 ActiveAudioSources[indexClipToPlay].loop = false;
                 ActiveAudioSources[indexClipToPlay].Play();
