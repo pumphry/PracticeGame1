@@ -11,7 +11,7 @@ using UnityStandardAssets.Characters.ThirdPerson;
 public class PlayerPrefsManager : MonoBehaviourSingleton<PlayerPrefsManager>
 {
     // PlayerPrefs key names enum list. Each new value that we add to the game should have the key name added here as part of the enum!
-    public enum PlayerPrefKeyNames { BestTimeFloatVal, MuteGameplayMusicIntVal };
+    public enum PlayerPrefKeyNames { BestTimeFloatVal, MuteGameplayMusicIntVal, MuteSoundFXIntVal };
 
     // Use this for initialization
     void Start()

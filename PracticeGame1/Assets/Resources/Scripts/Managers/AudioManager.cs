@@ -130,30 +130,33 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
 
     public void PlaySFXClip(SFXClips sfxClipToPlay)
     {
-        int indexClipToPlay = -1;
-
-        switch(sfxClipToPlay)
+        if (PlayerPrefsManager.Instance.GetPlayerPrefIntVal(PlayerPrefsManager.PlayerPrefKeyNames.MuteSoundFXIntVal) == 0)
         {
-            case SFXClips.BowShotSFX:
-                indexClipToPlay = 1;
-                ActiveAudioSources[1].clip = BowShotSFX; 
-                break;
-            case SFXClips.OuchSFX:
-                indexClipToPlay = 2;
-                ActiveAudioSources[2].clip = OuchSFX;
-                break;
-            case SFXClips.PopupOpeningSFX:
-                indexClipToPlay = 3;
-                ActiveAudioSources[3].clip = PopupOpeningSFX;
-                break;
-            default:
-                break;
-        }
+            int indexClipToPlay = -1;
 
-        if(indexClipToPlay >= 0 && ActiveAudioSources[indexClipToPlay].clip != null)
-        {
-            ActiveAudioSources[indexClipToPlay].loop = false;
-            ActiveAudioSources[indexClipToPlay].Play();
+            switch (sfxClipToPlay)
+            {
+                case SFXClips.BowShotSFX:
+                    indexClipToPlay = 1;
+                    ActiveAudioSources[1].clip = BowShotSFX;
+                    break;
+                case SFXClips.OuchSFX:
+                    indexClipToPlay = 2;
+                    ActiveAudioSources[2].clip = OuchSFX;
+                    break;
+                case SFXClips.PopupOpeningSFX:
+                    indexClipToPlay = 3;
+                    ActiveAudioSources[3].clip = PopupOpeningSFX;
+                    break;
+                default:
+                    break;
+            }
+
+            if (indexClipToPlay >= 0 && ActiveAudioSources[indexClipToPlay].clip != null)
+            {
+                ActiveAudioSources[indexClipToPlay].loop = false;
+                ActiveAudioSources[indexClipToPlay].Play();
+            }
         }
     }
 }
