@@ -61,6 +61,20 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
 		CreateUIRoot ();
 
+        // Set the FrontEndAudioManager variable in AudioManager on Start.
+        if(AudioManager.Instance != null)
+        {
+            GameObject mainCamera = GameObject.Find("Main Camera");
+            if (mainCamera != null)
+            {
+                AudioSource frontEndAudioSource = mainCamera.GetComponent<AudioSource>();
+                if (frontEndAudioSource != null)
+                {
+                    AudioManager.Instance.SetFrontEndAudioScource(frontEndAudioSource);
+                }
+            }
+        }
+
 	}
 
 	void ClearUIManagerVariables()

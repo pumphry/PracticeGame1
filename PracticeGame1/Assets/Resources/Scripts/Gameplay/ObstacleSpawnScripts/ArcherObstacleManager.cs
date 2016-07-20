@@ -63,7 +63,7 @@ public class ArcherObstacleManager : GenericObstacleManager
 
         BaseProjectileManager projectileManager = null;
 
-        if (projectile != null && _InRangeOfPlayer)
+        if (projectile != null && _InRangeOfPlayer && transform.position.z > 0f)
         {
             projectile.transform.parent = this.transform;
             projectile.transform.localPosition = _StartingArrowPosition;
@@ -72,6 +72,8 @@ public class ArcherObstacleManager : GenericObstacleManager
 
             if (projectileManager != null)
             {
+                AudioManager.Instance.PlaySFXClip(AudioManager.SFXClips.BowShotSFX);
+
                 projectileManager.Init(0.001f);
 
                 Debug.Log("Arrow projectile fired!");

@@ -130,17 +130,24 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
         // Setup the gameplay UI.
         SetupInGameUI();
 
+        AudioManager.Instance.FrontEndAudioSource.GetComponent<AudioListener>().enabled = false;
+
         ToggleGameplayControlsListener(true);
 
         // Set the primary gameplay audio source for the AudioManager to use.
-        StartCoroutine("DelayedSetupGameplayAudioSource");
+        StartCoroutine("SwitchToGameplayAudioSource");
     }
 
-    public IEnumerator DelayedSetupGameplayAudioSource()
+    public IEnumerator SwitchToGameplayAudioSource()
     {
         yield return new WaitForSeconds(2.0f);
 
         SetupGameplayAudioSource();
+    }
+
+    public void TogglePrimaryAudioSource(AudioManager.AudioSources audioSourceToToggleTo)
+    {
+        AudioManager.Instance.TogglePrimaryAudioSource(audioSourceToToggleTo);
     }
 
     public void SetupGameplayAudioSource()
@@ -152,6 +159,10 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
             if (gameplayAudioSource != null)
             {
                 AudioManager.Instance.SetGameplayAudioSource(gameplayAudioSource);
+
+                TogglePrimaryAudioSource(AudioManager.AudioSources.GameplayAudioSource);
+
+                AudioManager.Instance.PlayGameplayMusic();
             }
         }
     }
@@ -181,6 +192,10 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
         GameOver = true;
 
         UIManager.Instance.ToggleFrontendUI(true);
+
+        AudioManager.Instance.StopMusicTrack();
+
+        AudioManager.Instance.TogglePrimaryAudioSource(AudioManager.AudioSources.FrontEndAudioSource);
 
         DestroyGameplayPrefab();
     }
