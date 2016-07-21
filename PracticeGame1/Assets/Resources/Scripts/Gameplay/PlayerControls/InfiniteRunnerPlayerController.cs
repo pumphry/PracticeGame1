@@ -8,6 +8,8 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class InfiniteRunnerPlayerController : MonoBehaviour
 {
+    private Animator _Animator;
+
     public List<Transform> ListOfPlayerMovementZones = new List<Transform>();
 
     private enum _MovementDirections { Left, Right }
@@ -31,6 +33,8 @@ public class InfiniteRunnerPlayerController : MonoBehaviour
     {
         _InputBlocked = true;
 
+        _Animator = gameObject.GetComponent<Animator>();
+
         StartCoroutine("WaitThenGivePlayerControl");
     }
 
@@ -53,8 +57,28 @@ public class InfiniteRunnerPlayerController : MonoBehaviour
         }
     }
 
+    void UpdateAnimator(float move)
+    {
+        // update the animator parameters
+        _Animator.SetFloat("Speed", move);
+        _Animator.SetFloat("Forward", 1.0f, 0.1f, Time.deltaTime);
+        if (!_PlayerJumping)
+        {
+            _Animator.SetBool("OnGround", true);
+        }
+        else
+        {
+            _Animator.SetBool("OnGround", false);
+        }
+        _Animator.Play("HumanoidRun", 0);
+    }
+
     void Update()
     {
+        float move = 1.0f;
+
+        UpdateAnimator(move);
+
         if (!_InputBlocked)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
