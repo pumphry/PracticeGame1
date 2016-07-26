@@ -27,8 +27,9 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
     public AudioClip BowShotSFX;
     public AudioClip PopupOpeningSFX;
     public AudioClip YeahSFX;
+    public AudioClip RunningThroughGrassSFX;
 
-    public enum SFXClips { OuchSFX, BowShotSFX, PopupOpeningSFX, YeahSFX };
+    public enum SFXClips { OuchSFX, BowShotSFX, PopupOpeningSFX, YeahSFX, RunningThroughGrassSFX };
 
     // Use this for initialization
     void Start () {
@@ -37,6 +38,7 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
         Debug.Assert(BowShotSFX != null);
         Debug.Assert(PopupOpeningSFX != null);
         Debug.Assert(YeahSFX != null);
+        Debug.Assert(RunningThroughGrassSFX != null);
     }
 
     public void SetFrontEndAudioScource(List<AudioSource> frontEndAudioScources)
@@ -139,7 +141,7 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
         }
     }
 
-    public void PlaySFXClip(SFXClips sfxClipToPlay)
+    public void PlaySFXClip(SFXClips sfxClipToPlay, bool isLooping = false)
     {
         if (PlayerPrefsManager.Instance.GetPlayerPrefIntVal(PlayerPrefsManager.PlayerPrefKeyNames.MuteSoundFXIntVal) == 0)
         {
@@ -147,32 +149,40 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
 
             switch (sfxClipToPlay)
             {
-                case SFXClips.BowShotSFX:
+                // Running through grass loops indefinitely.
+                case SFXClips.RunningThroughGrassSFX:
                     indexClipToPlay = 1;
                     if (ActiveAudioSources.Count >= indexClipToPlay)
                     {
-                        ActiveAudioSources[1].clip = BowShotSFX;
+                        ActiveAudioSources[indexClipToPlay].clip = RunningThroughGrassSFX;
+                    }
+                    break;
+                case SFXClips.BowShotSFX:
+                    indexClipToPlay = 3;
+                    if (ActiveAudioSources.Count >= indexClipToPlay)
+                    {
+                        ActiveAudioSources[indexClipToPlay].clip = BowShotSFX;
                     }
                     break;
                 case SFXClips.OuchSFX:
                     indexClipToPlay = 2;
                     if (ActiveAudioSources.Count >= indexClipToPlay)
                     {
-                        ActiveAudioSources[2].clip = OuchSFX;
+                        ActiveAudioSources[indexClipToPlay].clip = OuchSFX;
                     }
                     break;
                 case SFXClips.PopupOpeningSFX:
                     indexClipToPlay = 3;
                     if (ActiveAudioSources.Count >= indexClipToPlay)
                     {
-                        ActiveAudioSources[3].clip = PopupOpeningSFX;
+                        ActiveAudioSources[indexClipToPlay].clip = PopupOpeningSFX;
                     }
                     break;
                 case SFXClips.YeahSFX:
                     indexClipToPlay = 2;
                     if (ActiveAudioSources.Count >= indexClipToPlay)
                     {
-                        ActiveAudioSources[2].clip = YeahSFX;
+                        ActiveAudioSources[indexClipToPlay].clip = YeahSFX;
                     }
                     break;
                 default:
@@ -181,9 +191,25 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
 
             if (indexClipToPlay >= 0 && ActiveAudioSources.Count >= indexClipToPlay && ActiveAudioSources[indexClipToPlay].clip != null)
             {
-                ActiveAudioSources[indexClipToPlay].loop = false;
+                ActiveAudioSources[indexClipToPlay].loop = isLooping;
                 ActiveAudioSources[indexClipToPlay].Play();
             }
+        }
+    }
+
+    public void PauseSFXClip(AudioManager.SFXClips sfxClipToPause)
+    {
+        if(sfxClipToPause == AudioManager.SFXClips.RunningThroughGrassSFX)
+        {
+            ActiveAudioSources[1].Pause();
+        }
+    }
+
+    public void UnPauseSFXClip(AudioManager.SFXClips sfxClipToUnpause)
+    {
+        if(sfxClipToUnpause == AudioManager.SFXClips.RunningThroughGrassSFX)
+        {
+            ActiveAudioSources[1].UnPause();
         }
     }
 }

@@ -43,6 +43,8 @@ public class InfiniteRunnerPlayerController : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         _InputBlocked = false;
+
+        //AudioManager.Instance.PlaySFXClip(AudioManager.SFXClips.RunningThroughGrassSFX, true);
     }
 
     public void PopulatePlayerMovementZonesList(List<Transform> listOfPlayerMovementZones)
@@ -64,6 +66,8 @@ public class InfiniteRunnerPlayerController : MonoBehaviour
         _Animator.SetFloat("Forward", 1.0f, 0.1f, Time.deltaTime);
         if (!_PlayerJumping)
         {
+            //AudioManager.Instance.UnPauseSFXClip(AudioManager.SFXClips.RunningThroughGrassSFX);
+
             _Animator.SetBool("OnGround", true);
         }
         else
@@ -171,6 +175,8 @@ public class InfiniteRunnerPlayerController : MonoBehaviour
     private void JumpAction()
     {
         _PlayerJumping = true;
+
+        AudioManager.Instance.PauseSFXClip(AudioManager.SFXClips.RunningThroughGrassSFX);
 
         AudioManager.Instance.PlaySFXClip(AudioManager.SFXClips.YeahSFX);
     }
