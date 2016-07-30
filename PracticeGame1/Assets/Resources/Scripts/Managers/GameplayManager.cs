@@ -199,6 +199,8 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
 
         UIManager.Instance.ToggleFrontendUI(true);
 
+        GameStartupManager.Instance.OnEnterFrontEndEvent();
+
         AudioManager.Instance.StopMusicTrack();
 
         AudioManager.Instance.TogglePrimaryAudioSources(AudioManager.AudioSources.FrontEndAudioSources);

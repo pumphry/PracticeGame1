@@ -23,8 +23,12 @@ public class GameStartupManager : MonoBehaviourSingleton<GameStartupManager>
     // List of manager name strings for each manager that will get instanced on startup.
     public List<string> ManagerNames = new List<string>();
 
-	// Use this for initialization
-	void Start ()
+    // Public event for entering and leaving the FrontEnd UI.
+    public delegate void EnteringFrontEnd();
+    public static event EnteringFrontEnd OnEnteringFrontEnd;
+
+    // Use this for initialization
+    void Start ()
 	{
         Debug.Log("StartupManager active.");
 
@@ -70,6 +74,15 @@ public class GameStartupManager : MonoBehaviourSingleton<GameStartupManager>
             {
                 Debug.LogErrorFormat("GameStartupManager: CreateManagerChild: {0} is null or not valid!", managerName);
             }
+        }
+    }
+
+    // Event that gets triggered when player enters the FrontEnd portion of the game (after leaving a gameplay session).
+    public void OnEnterFrontEndEvent()
+    {
+        if (OnEnteringFrontEnd != null)
+        {
+            OnEnteringFrontEnd();
         }
     }
 }

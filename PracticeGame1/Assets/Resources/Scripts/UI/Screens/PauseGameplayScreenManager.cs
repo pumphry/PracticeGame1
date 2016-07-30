@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PauseGameplayScreenManager : MonoBehaviour {
+public class PauseGameplayScreenManager : ScreenBase
+{
 
 	// Use this for initialization
 	void Start () {

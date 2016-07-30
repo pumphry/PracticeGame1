@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class OptionsPopupManager : MonoBehaviour
+public class OptionsPopupManager : PopupBase
 {
 
     public Toggle MusicMuteToggle;

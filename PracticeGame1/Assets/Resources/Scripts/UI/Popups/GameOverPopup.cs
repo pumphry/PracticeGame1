@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameOverPopup : MonoBehaviour
+public class GameOverPopup : PopupBase
 {
     public Text MessageText;
 
