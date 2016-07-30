@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Base script for all Screens to derive from.
+/// </summary>
 public class ScreenBase : MonoBehaviour {
 
     void Awake()

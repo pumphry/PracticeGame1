@@ -205,11 +205,47 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
         }
     }
 
-    public void UnPauseSFXClip(AudioManager.SFXClips sfxClipToUnpause)
+    public void UnpauseSFXClip(AudioManager.SFXClips sfxClipToUnpause)
     {
         if(sfxClipToUnpause == AudioManager.SFXClips.RunningThroughGrassSFX)
         {
             ActiveAudioSources[1].UnPause();
+        }
+    }
+
+    public void PauseAllSFXClips()
+    {
+        int audioSourceIndex = 0;
+
+        foreach(AudioSource audioSource in ActiveAudioSources)
+        {
+            // We skip the first Audio Source since it is going to be the gameplay music and/or frontend music and we don't want to pause this.
+            if (audioSourceIndex == 0)
+            {
+                if (audioSource.clip != null)
+                {
+                    audioSource.Pause();
+                }
+            }
+            audioSourceIndex++;
+        }
+    }
+
+    public void UnpauseAllSFXClips()
+    {
+        int audioSourceIndex = 0;
+
+        foreach (AudioSource audioSource in ActiveAudioSources)
+        {
+            // We skip the first Audio Source since it is going to be the gameplay music and/or frontend music and we didn't pause this.
+            if (audioSourceIndex == 0)
+            {
+                if (audioSource.clip != null)
+                {
+                    audioSource.Play();
+                }
+            }
+            audioSourceIndex++;
         }
     }
 }

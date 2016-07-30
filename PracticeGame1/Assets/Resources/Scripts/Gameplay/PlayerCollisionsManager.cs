@@ -18,6 +18,8 @@ public class PlayerCollisionsManager : MonoBehaviour {
         {
             if (other.tag == "Obstacle")
             {
+                AudioManager.Instance.PauseSFXClip(AudioManager.SFXClips.RunningThroughGrassSFX);
+
                 AudioManager.Instance.PlaySFXClip(AudioManager.SFXClips.OuchSFX);
 
                 EnterGameOverPhase("You hit an obstacle!");
@@ -27,6 +29,8 @@ public class PlayerCollisionsManager : MonoBehaviour {
 
             if (other.tag == "Pike")
             {
+                AudioManager.Instance.PauseSFXClip(AudioManager.SFXClips.RunningThroughGrassSFX);
+
                 AudioManager.Instance.PlaySFXClip(AudioManager.SFXClips.OuchSFX);
 
                 EnterGameOverPhase("Ouch! You ran into a row of pikes!");
@@ -36,6 +40,8 @@ public class PlayerCollisionsManager : MonoBehaviour {
 
             if (other.tag == "Hill")
             {
+                AudioManager.Instance.PauseSFXClip(AudioManager.SFXClips.RunningThroughGrassSFX);
+
                 AudioManager.Instance.PlaySFXClip(AudioManager.SFXClips.OuchSFX);
 
                 EnterGameOverPhase("Ugh! You tripped over a hill!");
@@ -45,6 +51,8 @@ public class PlayerCollisionsManager : MonoBehaviour {
 
             if (other.tag == "Enemy")
             {
+                AudioManager.Instance.PauseSFXClip(AudioManager.SFXClips.RunningThroughGrassSFX);
+
                 AudioManager.Instance.PlaySFXClip(AudioManager.SFXClips.OuchSFX);
 
                 EnterGameOverPhase("Oh no an enemy has caught you!");
@@ -54,6 +62,8 @@ public class PlayerCollisionsManager : MonoBehaviour {
 
             if (other.tag == "Projectile")
             {
+                AudioManager.Instance.PauseSFXClip(AudioManager.SFXClips.RunningThroughGrassSFX);
+
                 AudioManager.Instance.PlaySFXClip(AudioManager.SFXClips.OuchSFX);
 
                 EnterGameOverPhase("You were shot by an archer!");

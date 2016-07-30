@@ -240,6 +240,8 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
             Debug.Log("Resuming gameplay and unpausing!");
 
             GameplayPaused = false;
+
+            //AudioManager.Instance.UnpauseAllSFXClips();
         }
         else
         {
@@ -249,6 +251,8 @@ public class GameplayManager : MonoBehaviourSingleton<GameplayManager>
             Debug.Log("Pausing the gameplay!");
 
             GameplayPaused = true;
+
+            //AudioManager.Instance.PauseAllSFXClips();
         }
 
         if (showPauseScreen)

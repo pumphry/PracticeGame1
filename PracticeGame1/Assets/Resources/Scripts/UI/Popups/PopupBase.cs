@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Base script for all Popups to derive from.
+/// </summary>
 public class PopupBase : MonoBehaviour {
 
     void Awake()
